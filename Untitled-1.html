@@ -1,33 +1,53 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="stylesheet.css">
     <title>Lieferservice Albstadt</title>
     <style>
-        ul{
+        .header{
+            background-color:  rgb(105, 102, 102);
+            height: 100px;
+            width: 100%;
+        }
+        .footer{
+            background-color:  rgb(105, 102, 102);
+            height: 100px;
+            width: 100%;
+        }
+        .ul{
             position: relative;
             float: left;
             left: 55%;
-            margin: 0 auto;
+            margin: 0px;
             padding: 0;
         }
-        nav {
+        .nav {
             float: left;
             width: 100%;
-            padding: 20px 0;
-            background-color: rgb(105, 102, 102);
+            padding: 0px 0;
         }
-        li {
+        .li {
             position: relative;
             float: left;
             right: 50%;
-            margin-right: 125px;
-            padding: 5px 10px;
+            margin-right: 140px;
+            padding: 5px 0px;
             list-style: none;
-            cursor: pointer;
         } 
         .überschrift{
             color: rgb(214, 12, 12)
+
+        }
+        .back{
+            background-color: rgb(197, 188, 188);
+        }
+        .kasten {
+            width: 80%; 
+            height: 170px;
+            border: 3px solid gray;
+            padding: 10px;
+            margin: 10px;
+            
+            
 
         }
 
@@ -37,15 +57,42 @@
   
 
   <body>
-    <nav>
-            <ul>
-                <li><h2>Homepage</h2></li>
-                <li><div class= "überschrift"><h1><u>Lieferservice Albstadt</u></h1></div></li>
-                <li><h2>Warenkorb</h2></li>
-            </ul>
-    </nav>
+    <div class="header">
+        <div class="nav">
+            <div class="ul">
+                <div class="li"><h2>Homepage</h2></div>
+                <div class="li"><div class= "überschrift"><h1><u>Lieferservice Albstadt</u></h1></div></div>
+                <div class="li"><h2>Warenkorb</h2></div>
+            </div>
+        </div>  
+    </div>
     <main>
-        
+        <div class="back">
+            
+            <div class= "kasten">
+                <img style="float:left" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiL3lunyQF5D5tC3CvJVUcjrIdB1mOQixn8w&usqp=CAU" height="120" width="150">
+                <h2>Pizza</h2>
+                <p>Margeritha, Salami, Schinken, Mix</p>
+                <input type="submit" value="Anschauen" onclick="javascript:alert('Du hast den Knopf gedrückt')">
+            </div>
+            <div class= "kasten">
+                <img style="float:left" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSywlbeKo-qhh_1nZY5nVdMgwI3A-cSIi92Jg&usqp=CAU" height="120" width="150">
+                <h2>Pasta</h2>
+                <p>Napoli, Bolognese, Carbonar, Mare</p>
+                <input type="submit" value="Anschauen" onclick="javascript:alert('Du hast den Knopf gedrückt')"><br>
+            </div>
+            <div class= "kasten">
+                <img style="float:left" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxGqimQE2oNZRszFPPz1mDFF00ZErf6nyOQA&usqp=CAU" height="120" width="150">
+                <h2>Schnitzel</h2>
+                <p>Wiener, Zigeuner, Pfeffer, Bolognese</p>
+                <input type="submit" value="Anschauen" onclick="javascript:alert('Du hast den Knopf gedrückt')"><br>
+            </div>
+            <input type="submit" value="Bestellen" onclick="javascript:alert('Du hast den Knopf gedrückt')"><br>
+
+
+
+
+        </div>        
 
 
 
@@ -57,15 +104,15 @@
 
 
     </main>
-    <footer>
-        <nav>
-            <ul>
-                <li><p>Impressum</p></li>
-                <li><p>AGB</p></li>
-                <li><p>Standort</p></li>
-                <li><p>Bewerben sie sich bei uns</p></li>
-            </ul>
-        </nav>   
-    </footer>
+    <div class="footer">
+        <div class="nav">
+            <div class="ul">
+                <div class="li"><p>Impressum</p></div>
+                <div class="li"><p>AGB</p></div>
+                <div class="li"><p>Standort</p></div>
+                <div class="li"><p>Bewerben sie sich bei uns</p></div>
+            </div>
+        </div>   
+    </div>
   </body>
 </html>
