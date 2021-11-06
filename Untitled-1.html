@@ -38,17 +38,26 @@
 
         }
         .back{
-            background-color: rgb(197, 188, 188);
+            padding: 5px;
+            background-color: rgb(235, 231, 231);
+            height: 600px;
         }
         .kasten {
             width: 80%; 
-            height: 170px;
+            height: 120px;
             border: 3px solid gray;
-            padding: 10px;
             margin: 10px;
             
+        }
+        .center{
+            text-align: center;
+        }
+        table{
+            text-align: center;
+        }
+        .buttonverschieben{
+            margin-left: 90%;
             
-
         }
 
     </style>
@@ -66,41 +75,41 @@
             </div>
         </div>  
     </div>
+
+
+
     <main>
         <div class="back">
-            
             <div class= "kasten">
                 <img style="float:left" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiL3lunyQF5D5tC3CvJVUcjrIdB1mOQixn8w&usqp=CAU" height="120" width="150">
-                <h2>Pizza</h2>
-                <p>Margeritha, Salami, Schinken, Mix</p>
-                <input type="submit" value="Anschauen" onclick="javascript:alert('Du hast den Knopf gedrückt')">
+                <h1 class="center">Pizza</h1>
+                <div class= "buttonverschieben">
+                    <input type="submit" value="Anschauen" onclick="javascript:alert('Du hast den Knopf gedrückt')">
+                </div>
+                <p class="center">Margeritha, Salami, Schinken, Mix</p>  
+
+            
             </div>
+
+
             <div class= "kasten">
                 <img style="float:left" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSywlbeKo-qhh_1nZY5nVdMgwI3A-cSIi92Jg&usqp=CAU" height="120" width="150">
-                <h2>Pasta</h2>
+                <h2 class="center">Pasta</h2>
                 <p>Napoli, Bolognese, Carbonar, Mare</p>
-                <input type="submit" value="Anschauen" onclick="javascript:alert('Du hast den Knopf gedrückt')"><br>
+                <input  type="submit" value="Anschauen" onclick="javascript:alert('Du hast den Knopf gedrückt')"><br>
             </div>
             <div class= "kasten">
                 <img style="float:left" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxGqimQE2oNZRszFPPz1mDFF00ZErf6nyOQA&usqp=CAU" height="120" width="150">
-                <h2>Schnitzel</h2>
+                <h2 class="center">Schnitzel</h2>
                 <p>Wiener, Zigeuner, Pfeffer, Bolognese</p>
                 <input type="submit" value="Anschauen" onclick="javascript:alert('Du hast den Knopf gedrückt')"><br>
             </div>
             <input type="submit" value="Bestellen" onclick="javascript:alert('Du hast den Knopf gedrückt')"><br>
+        </div>
 
 
 
-
-        </div>        
-
-
-
-
-
-
-
-
+     
 
 
     </main>
