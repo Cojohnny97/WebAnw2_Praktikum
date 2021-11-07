@@ -28,9 +28,9 @@
 	display: flex;
 	margin-bottom: 2rem;
 	
-	border:3px solid grey;
+	border:2px solid grey;
 	justify-content: space-between;
-  align-items: center;
+    align-items: center;
 
 }
 .mid img{
@@ -61,6 +61,7 @@ padding-top: 1rem;
 padding-right: 3rem;
 padding-left: 1rem;
 background-color: #f3f3f3;
+height: 500px;
 
 }
 .btn1{
