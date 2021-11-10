@@ -84,6 +84,7 @@ a {
   text-decoration: none;
   display: inline-block;
   padding: 8px 16px;
+  cursor: pointer;
 }
 
 a:hover {
@@ -105,4 +106,10 @@ a:hover {
 .buttonmitte{
 	float: right;
 	left: 15%;
+}
+tr{
+	margin-bottom: 3px;
+}
+td{
+	margin-bottom: 3px;
 }
