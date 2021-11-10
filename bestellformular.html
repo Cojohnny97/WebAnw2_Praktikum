@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Close page</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+		<section class="panel">
+			<div class="container">		
+				<a href="Startseite.html">Homepage</a>
+				<div class= "überschrift"><h1><u>Lieferservice Albstadt</u></h1></div>
+				<a href="warenkorb.html">Warenkorb</a>				
+			</div>
+		</section>
+		<form>
+            <table>
+                <tr>
+                    <td> 
+                        <label for="Anrede">Anrede:</label>
+                    </td>
+                     <td>
+                         <input type="radio" id="Herr" name="anrede" value="Herr">
+                         <label for="Herr">Herr</label>
+                         <input type="radio" id="Frau" name="anrede" value="Frau">
+                        <label for="Frau">Frau</label>
+                    </td>
+                </tr> 
+                <tr>
+                     <td>
+                        <label for="Vname">Vorname:</label>
+                     </td>
+                    <td>
+                        <input type="text" id="Vname">
+                    </td>
+                </tr>
+                <tr>     
+                    <td>
+                        <label for="Nname">Nachname:</label>
+                    </td>
+                    <td>
+                        <input type="text" id="Nname">
+                    </td>
+                 </tr>
+                 <tr> 
+                    <td>
+                        <label for="email">Email Adresse</label>
+                    </td>
+                    <td>
+                        <input type="text" id="email">
+                    </td>
+                  </tr>
+                <tr>
+                  <td>
+                    <label for="tel">Telefonnummer</label>
+                  </td>
+                  <td>
+                    <input type="number" pattern="[0-9]" id="tel">
+                  </td>
+                </tr>
+                <tr> 
+                    <td>
+                        <label for="adresse">Adresse</label>
+                    </td>
+                    <td>
+                        <input type="text" id="adresse">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label for="plz">Telefonnummer</label>
+                    </td>
+                    <td>
+                      <input type="number" pattern="[0-9]" id="plz">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <input type="submit" onclick="add()">
+                    </td>
+                </tr>     
+            </table>
+            </form>
+		<section class="footer">
+			<div class="container">
+				<a href="">Impressum</a>
+				<a href="">AGB  </a>
+				<a href="">Standort</a>
+				<a href="">Bewerben Sie Sich bei uns</a>			
+			</div>
+		</section>
+	</body>
+</html>
