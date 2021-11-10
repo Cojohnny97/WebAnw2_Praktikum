@@ -28,8 +28,8 @@
 	display: flex;
 	margin-bottom: 2rem;	
 	border:2px solid grey;
-	justify-content: space-between;
-    align-items: center;
+	width: 100%;
+    align-items: initial;
 
 }
 /*.mid img{
@@ -69,15 +69,22 @@
 	margin-right: 3rem;
 	padding-right: 5px;
 	padding-left: 5px;
+	float: left;
+	margin-left: 10%;
+
 }
 .btn2{
 	background-color: grey;
+	cursor: pointer;
+	align-items: top;
+	float: right;
+	
+	padding: 5px;
+	/*padding-right: 5px;
+	padding-left: 5px;
 	padding: 5px 0 5px;
 	margin-right: 3rem;
-	cursor: pointer;
-	padding-right: 5px;
-	padding-left: 5px;
-	align-items: top;
+	*/
 }
 
 a {
@@ -108,6 +115,21 @@ a:hover {
 	left: 15%;
 }
 .text{
+	align-items: left;
+	background-color: green;
+}
+.kosten{
 	float: left;
-	margin-left: 3%;
+	margin-left: 200px;
+}
+.ware{
+	float: left;
+	margin-left: 300px;
+}
+.tabelle{
+	float: right;
+}
+.tabelle2{
+	float: right;
+	margin-right: 100px;
 }
