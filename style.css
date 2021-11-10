@@ -107,9 +107,7 @@ a:hover {
 	float: right;
 	left: 15%;
 }
-tr{
-	margin-bottom: 3px;
-}
-td{
-	margin-bottom: 3px;
+.text{
+	float: left;
+	margin-left: 3%;
 }
