@@ -10,8 +10,8 @@
 }
 .container{
 	display: flex;
-  justify-content: space-between;
-  align-items: center;
+	justify-content: space-between;
+	align-items: center;
 
 }
 .container a{
@@ -26,8 +26,7 @@
 }*/
 .mid{
 	display: flex;
-	margin-bottom: 2rem;
-	
+	margin-bottom: 2rem;	
 	border:2px solid grey;
 	justify-content: space-between;
     align-items: center;
@@ -43,7 +42,7 @@
     cursor: pointer;
 }
 .footer{
-margin-top: 0rem;
+	margin-top: 0rem;
     background: grey;
     padding: 12px 0 25px;
 
@@ -57,11 +56,11 @@ margin-top: 0rem;
 
 }
 .body{
-padding-top: 1rem;
-padding-right: 3rem;
-padding-left: 1rem;
-background-color: #f3f3f3;
-height: 550px;
+	padding-top: 1rem;
+	padding-right: 3rem;
+	padding-left: 1rem;
+	background-color: #f3f3f3;
+	height: 650px;
 
 }
 .btn1{
@@ -73,7 +72,7 @@ height: 550px;
 	padding-left: 5px;
 }
 .btn2{
-background-color: grey;
+	background-color: grey;
 	padding: 5px 0 5px;
 	margin-right: 3rem;
 	cursor: pointer;
@@ -102,5 +101,9 @@ a:hover {
 .bild{
 	object-fit: cover;
 	max-height: 120px;
-	width: 120px;
+	width: 180px;
+}
+.buttonmitte{
+	float: right;
+	left: 15%;
 }
