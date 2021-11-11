@@ -32,10 +32,8 @@
 	align-items: center;
 
 }
-/*.mid img{
-	object-fit: fill;
-}
-*/
+
+
 .btn{
 	margin-right: 2rem;
 	padding-bottom: 2rem;
@@ -137,4 +135,51 @@ a:hover {
 .btn3{
 	margin-left: 35%;
 	padding: 5px;
+}
+.BoxRechts {
+	float: right;
+	width: 100%;
+	margin-left: 15%;
+}
+.BoxLinks{
+	float: left;
+	width: 100%;
+	border: 10px red;
+	height: 100%;
+
+}
+.mid2{
+	display: flex;	
+	width: 100%;
+	align-items: center;
+	height: 100%;
+
+}
+.warek{
+	float: left;
+	margin-left: 50px;
+	width: 350px;
+}
+.kostenk{
+	float: left;
+	width: 350px;
+	margin-left: 300px;	
+}
+.mid3{
+	display: flex;
+	margin-bottom: 2rem;	
+	border:2px solid grey;
+	width: 100%;
+	align-items: center;
+	padding: 5px;
+	
+
+	
+}
+.mid4{
+	
+	border:2px solid grey;
+	width: 100%;
+	padding: 10px;
+
 }
