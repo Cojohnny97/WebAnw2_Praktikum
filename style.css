@@ -3,16 +3,13 @@
 	margin-bottom: 0px;
 }
 .panel{
-
     background: grey;
     padding: 12px 0 25px;
-
 }
 .container{
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-
 }
 .container a{
 	color: black;
@@ -21,19 +18,13 @@
 	text-decoration: none;
 	font-size: 20px;
 }
-/*#back{
-	background-color:grey;
-}*/
 .mid{
 	display: flex;
 	margin-bottom: 2rem;	
 	border:2px solid grey;
 	width: 100%;
 	align-items: center;
-
 }
-
-
 .btn{
 	margin-right: 2rem;
 	padding-bottom: 2rem;
@@ -43,7 +34,6 @@
 	margin-top: 0rem;
     background: grey;
     padding: 12px 0 25px;
-
 }
 .footer a{
 	color: black;
@@ -51,7 +41,6 @@
 	margin-right: 5rem;
 	text-decoration: none;
 	font-size: 16px;
-
 }
 .body{
 	padding-top: 1rem;
@@ -59,14 +48,13 @@
 	padding-left: 1rem;
 	background-color: #f3f3f3;
 	height: 780px;
-
 }
 .btn1{
 	background-color: grey;
 	padding: 5px;
 	float: left;
 	margin-left: 330px;
-
+	color: white;
 }
 .btn2{
 	background-color: grey;
@@ -75,29 +63,18 @@
 	float: left;
 	margin-left: 10%;
 	align-items: center;
-	
+	color: white;	
 	padding: 5px;
-	/*padding-right: 5px;
-	padding-left: 5px;
-	padding: 5px 0 5px;
-	margin-right: 3rem;
-	*/
 }
-
 a {
   text-decoration: none;
   display: inline-block;
   padding: 8px 16px;
   cursor: pointer;
 }
-
 a:hover {
   background-color: #ddd;
   color: black;
-}
-
-.btn3{
-	padding-bottom: 2rem;
 }
 .überschrift{
     color: rgb(214, 12, 12)
@@ -123,38 +100,34 @@ a:hover {
 .ware{
 	float: left;
 	width: 350px;
-	margin-left: 300px;
-	
+	margin-left: 300px;	
 }
 .ware1{
 	float: left;
 	width: 350px;
 	margin-left: 30%;
-	
 }
 .btn3{
+	padding-bottom: 2rem;
 	margin-left: 35%;
 	padding: 5px;
 	color: white;
 }
 .BoxRechts {
-	float: right;
+	float: top;
 	width: 100%;
 	margin-left: 15%;
 }
 .BoxLinks{
 	float: left;
 	width: 100%;
-	border: 10px red;
 	height: 100%;
-
 }
 .mid2{
 	display: flex;	
 	width: 100%;
 	align-items: center;
 	height: 100%;
-
 }
 .warek{
 	float: center;
@@ -181,14 +154,9 @@ a:hover {
 	width: 100%;
 	align-items: center;
 	padding: 5px;
-	
-
-	
 }
-.mid4{
-	
+.mid4{	
 	border:2px solid grey;
 	width: 100%;
 	padding: 10px;
-
 }

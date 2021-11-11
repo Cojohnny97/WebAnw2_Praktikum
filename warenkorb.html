@@ -9,7 +9,7 @@
 			<div class="container">		
 				<a href="Startseite.html">Homepage</a>
 				<div class= "überschrift"><h1><u>Lieferservice Albstadt</u></h1></div>
-				<a href="warenkorb.html">Warenkorb</a>				
+				<a href="warenkorb.html"><button id="clickme3">Warenkorb</button>	</a>				
 			</div>
 		</section>
 		<section>
@@ -56,7 +56,7 @@
 				<div class="BoxRechts">
 					<div class="mid4">
 						<p>Die Summe der Artikel beträgt: 28€</p>
-						<a href="bestellformular.html" style="background-color: grey;" >Bestellen</a>
+						<a href="bestellformular.html" style="background-color: grey; color: white;" >Bestellen</a>
 					</div>
 				</div>
 			</div>
@@ -71,4 +71,34 @@
 			</div>
 		</section>
 	</body>
+	<script>
+		var button = document.getElementById("clickme"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+		var button = document.getElementById("clickme1"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+		var button = document.getElementById("clickme2"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+		var button = document.getElementById("clickme4"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+		</script>
 </html>

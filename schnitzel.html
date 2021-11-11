@@ -9,7 +9,7 @@
 		<div class="container">
 			<a href="Startseite.html">Homepage</a>
 			<div class= "überschrift"><h1><u>Lieferservice Albstadt</u></h1></div>
-			<a href="warenkorb.html">Warenkorb</a>		
+			<a href="warenkorb.html"><button id="clickme3">Warenkorb</button></a>		
 		</div>
 		</section>
 
@@ -32,7 +32,7 @@
 						<input type="radio" id="SchnitzelP1" name="Schnitzel1" value="Pommes">
 						<label for="SchnitzelP1">Pommes</label>
 					</div>
-					<div class="btn2">Hinzufügen</div>
+					<button id="clickme1" class="btn2">Hinzufügen</button>
 				</div>
 				<div class="mid">
 					<img class="bild" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDF6vE4BiBJn0XPF53uXhxHDO2sMINzRtgOg&usqp=CAU">
@@ -51,7 +51,7 @@
 						<input type="radio" id="SchnitzelP2" name="Schnitzel2" value="Pommes">
 						<label for="SchnitzelP2">Pommes</label>
 					</div>
-					<div class="btn2">Hinzufügen</div>
+					<button id="clickme" class="btn2">Hinzufügen</button>
 				</div>
 				<div class="mid">
 					<img class="bild" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk_eFhhmN7fRupdyVbFIokKhmsdUw-Dx8LXw&usqp=CAU">
@@ -70,7 +70,7 @@
 						<input type="radio" id="SchnitzelP3" name="Schnitzel3" value="Pommes">
 						<label for="SchnitzelP3">Pommes</label>
 					</div>
-					<div class="btn2">Hinzufügen</div>
+					<button id="clickme2" class="btn2">Hinzufügen</button>
 				</div>
 				<div class="mid">
 					<img class="bild" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKIT2QBP3gKuObXYNTfDvhdIOLlSBwPg8k4w&usqp=CAU">
@@ -89,7 +89,7 @@
 						<input type="radio" id="SchnitzelP4" name="Schnitzel4" value="Pommes">
 						<label for="SchnitzelP4">Pommes</label>
 					</div>
-					<div class="btn2">Hinzufügen</div>
+					<button id="clickme4" class="btn2">Hinzufügen</button>
 				</div>
 			</div>
 		</section>
@@ -101,5 +101,38 @@
 				<a href="bewerbung.html">Bewerben Sie Sich bei uns</a>	
 			</div>
 		</section>
+		
+		
 	</body>
+	<script>
+		var button = document.getElementById("clickme"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+		var button = document.getElementById("clickme1"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+		var button = document.getElementById("clickme2"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+		var button = document.getElementById("clickme4"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+
+	</script>
 </html>
