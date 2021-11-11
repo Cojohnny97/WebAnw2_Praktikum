@@ -135,6 +135,7 @@ a:hover {
 .btn3{
 	margin-left: 35%;
 	padding: 5px;
+	color: white;
 }
 .BoxRechts {
 	float: right;
@@ -156,18 +157,26 @@ a:hover {
 
 }
 .warek{
-	float: left;
-	margin-left: 50px;
+	float: center;
+	margin-left: 20px;
 	width: 350px;
+	margin-bottom: 15px;
+}
+.anzahlk{
+	float: center;
+	margin-left: 20px;
+	width: 50px;
+	margin-bottom: 15px;
 }
 .kostenk{
 	float: left;
 	width: 350px;
-	margin-left: 300px;	
+	margin-left: 200px;	
+	margin-bottom: 15px;
 }
 .mid3{
 	display: flex;
-	margin-bottom: 2rem;	
+	margin-bottom: 1rem;	
 	border:2px solid grey;
 	width: 100%;
 	align-items: center;
