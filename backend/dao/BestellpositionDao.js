@@ -33,7 +33,7 @@ class BestellpositionDao {
         delete result.produktid
 
         result.nettosumme = result.durchmesser && result.durchmesser == 30 ? helper.round(result.menge * (result.produkt.nettopreis + result.produkt.aufpreis || 0)) : helper.round(result.menge * result.produkt.nettopreis) // bswp: 2 * (5,00 + 2,00) = 14,00€
-        result.mehrwertsteuersumme = mehrwertsteuerDao.getById(result.produkt.mwstId).satz * result.nettosumme // bspw. 0,19 * 14) = 2,66€
+        result.mehrwertsteuersumme = (mehrwertsteuerDao.getById(result.produkt.mwstId).satz / 100) * result.nettosumme // bspw. 0,19 * 14) = 2,66€
         result.bruttosumme = helper.round(result.nettosumme + result.mehrwertsteuersumme) // bspw: 14,00 + 2,66 = 16,66€
 
         return result
@@ -67,7 +67,7 @@ class BestellpositionDao {
             delete result[i].produktid
 
             result[i].nettosumme = result[i].durchmesser && result[i].durchmesser == 30 ? helper.round(result[i].menge * (result[i].produkt.nettopreis + result[i].produkt.aufpreis || 0)) : helper.round(result[i].menge * result[i].produkt.nettopreis)
-            result[i].mehrwertsteuersumme = mehrwertsteuerDao.getById(result[i].produkt.mwstId).satz * result[i].nettosumme 
+            result[i].mehrwertsteuersumme = (mehrwertsteuerDao.getById(result[i].produkt.mwstId).satz / 100) * result[i].nettosumme 
             result[i].bruttosumme = helper.round(result[i].nettosumme + result[i].mehrwertsteuersumme)
         }
 
@@ -103,7 +103,7 @@ class BestellpositionDao {
             delete result[i].produktid
 
             result[i].nettosumme = result[i].durchmesser && result[i].durchmesser == 30 ? helper.round(result[i].menge * (result[i].produkt.nettopreis + result[i].produkt.aufpreis || 0)) : helper.round(result[i].menge * result[i].produkt.nettopreis) 
-            result[i].mehrwertsteuersumme = mehrwertsteuerDao.getById(result[i].produkt.mwstId).satz * result[i].nettosumme 
+            result[i].mehrwertsteuersumme = (mehrwertsteuerDao.getById(result[i].produkt.mwstId).satz / 100) * result[i].nettosumme 
             result[i].bruttosumme = helper.round(result[i].nettosumme + result[i].mehrwertsteuersumme)
         }
 
