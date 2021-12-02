@@ -1,105 +1,113 @@
 const helper = require('../helper.js');
-const ProduktDao = require('./produktDao.js');
+const ProduktDao = require('./ProduktDao.js');
+const MehrwertsteuerDao = require('./MehrwertsteuerDao.js');
 
 class BestellpositionDao {
 
-    constructor(dbConnection) {
-        this._conn = dbConnection;
+    constructor(connection) {
+        this._conn = connection
     }
 
     getConnection() {
-        return this._conn;
+        return this._conn
     }
 
     getById(id) {
-        const produktDao = new ProduktDao(this._conn);
+        const produktDao = new ProduktDao(this._conn)
+        const mehrwertsteuerDao = new MehrwertsteuerDao(this._conn)
 
-        var sql = 'SELECT * FROM Bestellposition WHERE ID=?';
-        var statement = this._conn.prepare(sql);
-        var result = statement.get(id);
+        var sql = 'SELECT * FROM Bestellposition WHERE ID=?'
+        var statement = this._conn.prepare(sql)
+        var result = statement.get(id)
 
-        if (helper.isUndefined(result)) 
-            throw new Error('No Record found by id=' + id);
+        if (helper.isUndefined(result)) {
+            throw new Error('No Record found by id=' + id)
+        }
 
-        result = helper.objectKeysToLower(result);
+        result = helper.objectKeysToLower(result)
 
-        result.bestellung = { 'id': result.bestellungid };
-        delete result.bestellungid;
+        result.bestellung = { 'id': result.bestellungid }
+        delete result.bestellungid
         
-        result.produkt = produktDao.getById(result.produktid);
-        delete result.produktid;
+        result.produkt = produktDao.getById(result.produktid)
+        delete result.produktid
 
-        result.mehrwertsteuersumme = helper.round(result.menge * result.produkt.mehrwertsteueranteil);
-        result.nettosumme = helper.round(result.menge * result.produkt.nettopreis);
-        result.bruttosumme = helper.round(result.menge * result.produkt.bruttopreis);
+        result.nettosumme = result.durchmesser && result.durchmesser == 30 ? helper.round(result.menge * (result.produkt.nettopreis + result.produkt.aufpreis || 0)) : helper.round(result.menge * result.produkt.nettopreis) // bswp: 2 * (5,00 + 2,00) = 14,00€
+        result.mehrwertsteuersumme = mehrwertsteuerDao.getById(result.produkt.mwstId).satz * result.nettosumme // bspw. 0,19 * 14) = 2,66€
+        result.bruttosumme = helper.round(result.nettosumme + result.mehrwertsteuersumme) // bspw: 14,00 + 2,66 = 16,66€
 
-        return result;
+        return result
     }
 
     getAll() {
-        const produktDao = new ProduktDao(this._conn);
-        var products = produktDao.getAll();
+        const produktDao = new ProduktDao(this._conn)
+        var products = produktDao.getAll()
+        const mehrwertsteuerDao = new MehrwertsteuerDao(this._conn)
 
-        var sql = 'SELECT * FROM Bestellposition';
-        var statement = this._conn.prepare(sql);
-        var result = statement.all();
+        var sql = 'SELECT * FROM Bestellposition'
+        var statement = this._conn.prepare(sql)
+        var result = statement.all()
 
-        if (helper.isArrayEmpty(result)) 
-            return [];
+        if (helper.isArrayEmpty(result)) {
+            return []
+        }
         
-        result = helper.arrayObjectKeysToLower(result);
+        result = helper.arrayObjectKeysToLower(result)
 
-        for (var i = 0; i < result.length; i++) {
-            result[i].bestellung = { 'id': result[i].bestellungid };
-            delete result[i].bestellungid;
+        for (let i = 0; i < result.length; i++) {
+            result[i].bestellung = { 'id': result[i].bestellungid }
+            delete result[i].bestellungid
         
-            for (var element of products) {
-                if (element.id == result[i].produktid) {
-                    result[i].produkt = element;
-                    break;
+            for (let product of products) {
+                if (product.id == result[i].produktid) {
+                    result[i].produkt = product
+                    break
                 }
             }
-            delete result[i].produktid;
+            delete result[i].produktid
 
-            result[i].mehrwertsteuersumme = helper.round(result[i].menge * result[i].produkt.mehrwertsteueranteil);
-            result[i].nettosumme = helper.round(result[i].menge * result[i].produkt.nettopreis);
-            result[i].bruttosumme = helper.round(result[i].menge * result[i].produkt.bruttopreis);
+            result[i].nettosumme = result[i].durchmesser && result[i].durchmesser == 30 ? helper.round(result[i].menge * (result[i].produkt.nettopreis + result[i].produkt.aufpreis || 0)) : helper.round(result[i].menge * result[i].produkt.nettopreis)
+            result[i].mehrwertsteuersumme = mehrwertsteuerDao.getById(result[i].produkt.mwstId).satz * result[i].nettosumme 
+            result[i].bruttosumme = helper.round(result[i].nettosumme + result[i].mehrwertsteuersumme)
         }
 
-        return result;
+        return result
     }
 
-    getByParent(bestellungid) {
-        const produktDao = new ProduktDao(this._conn);
-        var products = produktDao.getAll();
+    getByParent(bestellId) {
+        const produktDao = new ProduktDao(this._conn)
+        var products = produktDao.getAll()
+        const mehrwertsteuerDao = new MehrwertsteuerDao(this._conn)
 
-        var sql = 'SELECT * FROM Bestellposition WHERE BestellungID=?';
-        var statement = this._conn.prepare(sql);
-        var result = statement.all(bestellungid);
 
-        if (helper.isArrayEmpty(result)) 
-            return [];
+        var sql = 'SELECT * FROM Bestellposition WHERE BestellID=?'
+        var statement = this._conn.prepare(sql)
+        var result = statement.all(bestellId)
+
+        if (helper.isArrayEmpty(result)) {
+            return []
+        }
         
-        result = helper.arrayObjectKeysToLower(result);
+        result = helper.arrayObjectKeysToLower(result)
 
-        for (var i = 0; i < result.length; i++) {
-            result[i].bestellung = { 'id': result[i].bestellungid };
-            delete result[i].bestellungid;
+        for (let i = 0; i < result.length; i++) {
+            result[i].bestellung = { 'id': result[i].bestellungid }
+            delete result[i].bestellungid
         
-            for (var element of products) {
-                if (element.id == result[i].produktid) {
-                    result[i].produkt = element;
-                    break;
+            for (let product of products) {
+                if (product.id == result[i].produktid) {
+                    result[i].produkt = product
+                    break
                 }
             }
-            delete result[i].produktid;
+            delete result[i].produktid
 
-            result[i].mehrwertsteuersumme = helper.round(result[i].menge * result[i].produkt.mehrwertsteueranteil);
-            result[i].nettosumme = helper.round(result[i].menge * result[i].produkt.nettopreis);
-            result[i].bruttosumme = helper.round(result[i].menge * result[i].produkt.bruttopreis);
+            result[i].nettosumme = result[i].durchmesser && result[i].durchmesser == 30 ? helper.round(result[i].menge * (result[i].produkt.nettopreis + result[i].produkt.aufpreis || 0)) : helper.round(result[i].menge * result[i].produkt.nettopreis) 
+            result[i].mehrwertsteuersumme = mehrwertsteuerDao.getById(result[i].produkt.mwstId).satz * result[i].nettosumme 
+            result[i].bruttosumme = helper.round(result[i].nettosumme + result[i].mehrwertsteuersumme)
         }
 
-        return result;
+        return result
     }
 
     exists(id) {
@@ -107,62 +115,58 @@ class BestellpositionDao {
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
 
-        if (result.cnt == 1) 
-            return true;
-
-        return false;
+        return result.cnt == 1 ? true : false
     }
 
-    create(bestellungid = 1, produktid = 1, menge = 1) {
-        var sql = 'INSERT INTO Bestellposition (BestellungID,ProduktID,Menge) VALUES (?,?,?)';
-        var statement = this._conn.prepare(sql);
-        var params = [bestellungid, produktid, menge];
-        var result = statement.run(params);
+    create(productid = 1, bestellid = 1,  durchmesser = 28, menge = 1) {
+        var sql = 'INSERT INTO Bestellposition (ProductID,BestellID,Durchmesser,Menge) VALUES (?,?,?,?)'
+        var statement = this._conn.prepare(sql)
+        var params = [productid, bestellid, durchmesser, menge]
+        var result = statement.run(params)
 
-        if (result.changes != 1) 
-            throw new Error('Could not insert new Record. Data: ' + params);
+        if (result.changes != 1) {
+            throw new Error('Could not insert new Record. Data: ' + params)
+        }
 
-        var newObj = this.getById(result.lastInsertRowid);
-        return newObj;
+        return this.getById(result.lastInsertRowid)
     }
 
-    update(id, bestellungid = 1, produktid = 1, menge = 1) {
-        var sql = 'UPDATE Bestellposition SET BestellungID=?,ProduktID=?,Menge=? WHERE ID=?';
-        var statement = this._conn.prepare(sql);
-        var params = [bestellungid, produktid, menge, id];
-        var result = statement.run(params);
+    update(id, productid = 1, bestellid = 1,  durchmesser = 28, menge = 1) {
+        var sql = 'UPDATE Bestellposition SET ProductID=?,BestellID=?,Durchmesser=?,Menge=? WHERE ID=?'
+        var statement = this._conn.prepare(sql)
+        var params = [productid, bestellid, durchmesser, menge]
+        var result = statement.run(params)
 
-        if (result.changes != 1) 
-            throw new Error('Could not update existing Record. Data: ' + params);
+        if (result.changes != 1) {
+            throw new Error('Could not update existing Record. Data: ' + params)
+        }
 
-        var updatedObj = this.getById(id);
-        return updatedObj;
+        return this.getById(id)
     }
 
     delete(id) {
         try {
-            var sql = 'DELETE FROM Bestellposition WHERE ID=?';
-            var statement = this._conn.prepare(sql);
-            var result = statement.run(id);
+            var sql = 'DELETE FROM Bestellposition WHERE ID=?'
+            var statement = this._conn.prepare(sql)
+            var result = statement.run(id)
 
-            if (result.changes != 1) 
-                throw new Error('Could not delete Record by id=' + id);
-
-            return true;
+            if (result.changes != 1) {
+                throw new Error('Could not delete Record by id=' + id)
+            }
+            return true
         } catch (ex) {
-            throw new Error('Could not delete Record by id=' + id + '. Reason: ' + ex.message);
+            throw new Error('Could not delete Record by id=' + id + '. Reason: ' + ex.message)
         }
     }
 
-    deleteByParent(bestellungid) {
+    deleteByParent(bestellId) {
         try {
-            var sql = 'DELETE FROM Bestellposition WHERE BestellungID=?';
-            var statement = this._conn.prepare(sql);
-            var result = statement.run(bestellungid);
-
-            return true;
+            var sql = 'DELETE FROM Bestellposition WHERE BestellID=?'
+            var statement = this._conn.prepare(sql)
+            statement.run(bestellId)
+            return true
         } catch (ex) {
-            throw new Error('Could not delete Records by bestellungid=' + bestellungid + '. Reason: ' + ex.message);
+            throw new Error('Could not delete Records by bestellungid=' + bestellungid + '. Reason: ' + ex.message)
         }
     }
 
