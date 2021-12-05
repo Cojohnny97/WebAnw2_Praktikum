@@ -85,3 +85,5 @@ class MehrwertsteuerDao {
     }
 
 }
+
+module.exports = MehrwertsteuerDao

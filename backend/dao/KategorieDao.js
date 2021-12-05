@@ -38,10 +38,10 @@ class KategorieDao {
         return result.cnt == 1 ? true : false
     }
 
-    create(name = '', bildpfad = '') {
-        var sql = 'INSERT INTO Kategorie (Name,Bildpfad) VALUES (?,?)'
+    create(name = '', beschreibung = '', bildpfad = '') {
+        var sql = 'INSERT INTO Kategorie (Name,Beschreibung,Bildpfad) VALUES (?,?,?)'
         var statement = this._conn.prepare(sql)
-        var params = [name, bildpfad]
+        var params = [name, beschreibung, bildpfad]
         var result = statement.run(params)
 
         if (result.changes != 1) {
@@ -50,16 +50,16 @@ class KategorieDao {
         return this.getById(result.lastInsertRowid)
     }
 
-    update(id, name = '', bildpfad = '') {
-        var sql = 'UPDATE Kategorie SET Name=?,Bildpfad=? WHERE ID=?'
+    update(id, name = '', beschreibung = '', bildpfad = '') {
+        var sql = 'UPDATE Kategorie SET Name=?,Beschreibung=?,Bildpfad=? WHERE ID=?'
         var statement = this._conn.prepare(sql)
-        var params = [name, bildpfad, id]
+        var params = [name, beschreibung, bildpfad, id]
         var result = statement.run(params)
 
         if (result.changes != 1) {
             throw new Error('Could not update existing Record. Data: ' + params)
         }
-        return this.loadById(id)
+        return this.getById(id)
     }
 
     delete(id) {

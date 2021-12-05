@@ -30,7 +30,7 @@ class KundeDao {
         }
         result = helper.arrayObjectKeysToLower(result)
 
-        for (let i=0; i<result.length; i++) {
+        for (let i = 0; i < result.length; i++) {
             result[i].anrede = result[i].anrede == 0 ? 'Herr' : 'Frau'
         }
         return result
