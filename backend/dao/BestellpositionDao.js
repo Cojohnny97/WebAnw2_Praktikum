@@ -111,9 +111,9 @@ class BestellpositionDao {
     }
 
     exists(id) {
-        var sql = 'SELECT COUNT(ID) AS cnt FROM Bestellposition WHERE ID=?';
-        var statement = this._conn.prepare(sql);
-        var result = statement.get(id);
+        var sql = 'SELECT COUNT(ID) AS cnt FROM Bestellposition WHERE ID=?'
+        var statement = this._conn.prepare(sql)
+        var result = statement.get(id)
 
         return result.cnt == 1 ? true : false
     }

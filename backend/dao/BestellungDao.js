@@ -94,6 +94,86 @@ class BestellungDao {
 
         return result
     }
+
+    exists(id) {
+        var sql = 'SELECT COUNT(ID) AS cnt FROM Bestellung WHERE ID=?'
+        var statement = this._conn.prepare(sql)
+        var result = statement.get(id)
+
+        return result.cnt == 1 ? true : false
+    }
+
+    create(kundeId = null, zeitpunkt = null, bestellpositionen = []) {
+        const bestellpositionDao = new BestellpositionDao(this._conn)
+
+        if (helper.isNull(zeitpunkt)) {
+            zeitpunkt = helper.getNow()
+        }
+
+        var sql = 'INSERT INTO Bestellung (Zeitpunkt,KundeID) VALUES (?,?)'
+        var statement = this._conn.prepare(sql)
+        var params = [helper.formatToSQLDateTime(zeitpunkt), kundeId]
+        var result = statement.run(params)
+
+        if (result.changes != 1) {
+            throw new Error('Could not insert new Record. Data: ' + params)
+        }
+
+        if (bestellpositionen.length > 0) { // Warum müssen die bestehenden Positionen nochmal created werden?
+            for (var position of bestellpositionen) {
+                bestellpositionDao.create(position.produkt.id, result.lastInsertRowid, position.durchmesser, position.menge)
+            }
+        }
+
+        return this.getById(result.lastInsertRowid)
+    }
+
+    update(id, kundeId = null, zeitpunkt = null, bestellpositionen = []) {
+        const bestellpositionDao = new BestellpositionDao(this._conn)
+        bestellpositionDao.deleteByParent(id)
+
+        if (helper.isNull(zeitpunkt)) {
+            zeitpunkt = helper.getNow()
+        }
+
+        var sql = 'UPDATE Bestellung SET Zeitpunkt=?,KundeID=? WHERE ID=?'
+        var statement = this._conn.prepare(sql)
+        var params = [helper.formatToSQLDateTime(zeitpunkt), kundeId, id]
+        var result = statement.run(params)
+
+        if (result.changes != 1) {
+            throw new Error('Could not update existing Record. Data: ' + params)
+        }
+        
+        if (bestellpositionen.length > 0) {
+            for (var position of bestellpositionen) {
+                bestellpositionDao.create(position.produkt.id, id, position.durchmesser, position.menge);
+            }
+        }
+        return this.getById(id)
+    }
+
+    delete(id) {
+        try {
+            const bestellpositionDao = new BestellpositionDao(this._conn)
+            bestellpositionDao.deleteByParent(id)
+
+            var sql = 'DELETE FROM Bestellung WHERE ID=?'
+            var statement = this._conn.prepare(sql)
+            var result = statement.run(id)
+
+            if (result.changes != 1) {
+                throw new Error('Could not delete Record by id=' + id)
+            }
+            return true
+        } catch (ex) {
+            throw new Error('Could not delete Record by id=' + id + '. Reason: ' + ex.message)
+        }
+    }
+
+    toString() {
+        helper.log('BestellungDao [_conn=' + this._conn + ']')
+    }
 }
 
 module.exports = BestellungDao
