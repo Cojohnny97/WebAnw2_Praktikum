@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Pizza Page</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+		<section class="panel">
+		<div class="container">
+			<a href="Startseite.html">Homepage</a>
+			<div class= "überschrift"><h1><u>Lieferservice Albstadt</u></h1></div>
+			<a href="warenkorb.html"><button id="clickme3">Warenkorb</button>	</a>		
+		</div>
+		</section>
+		<section>
+			<div class="body">
+				<div class="mid">
+					<img class="bild" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaur48ajVzwEwARbzGVY9FMLQgauhywWFUQg&usqp=CAU">
+					<div class="kosten">
+						<h3>Kosten 6€</h3>
+					</div>
+					<div class="ware">
+						<h2>Margeritha</h2>
+						<p>Pizza mit Tomatensauce, Käse</p>
+					</div>
+					<div class="btn1">
+						<input type="radio" id="Pizza281" name="Pizzaart1" value="28cm">
+						<label for="Pizza281">28cm</label><br>
+						<input type="radio" id="Pizza301" name="Pizzaart1" value="30cm">
+						<label for="Pizza301">30cm</label>
+					</div>
+					<button id="clickme1" class="btn2">Hinzufügen</button>
+				</div>
+				<div class="mid">
+					<img class="bild" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiL3lunyQF5D5tC3CvJVUcjrIdB1mOQixn8w&usqp=CAU">
+					<div class="kosten">
+						<h3>Kosten 7€</h3>
+					</div>
+					<div class="ware">
+						<h2>Salami</h2>
+						<p>Pizza mit Tomatensauce, Käse und Salami</p>
+					</div>
+					<div class="btn1">
+						<input type="radio" id="Pizza282" name="Pizzaart2" value="28cm">
+						<label for="Pizza282">28cm</label><br>
+						<input type="radio" id="Pizza302" name="Pizzaart2" value="30cm">
+						<label for="Pizza302">30cm</label>
+					</div>
+					<button id="clickme" class="btn2">Hinzufügen</button>
+				</div>
+				<div class="mid">
+					<img class="bild" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJGwB_fvYAX5NE0E9_xvwFSuypfSBJpxfB0w&usqp=CAU">
+					<div class="kosten">
+						<h3>Kosten 8€</h3>
+					</div>
+					<div class="ware">
+						<h2>Hawaii</h2>
+						<p>Pizza mit Tomatensauce, Käse,Schinken und Ananas</p>
+					</div>
+					<div class="btn1">
+						<input type="radio" id="Pizza283" name="Pizzaart3" value="28cm">
+						<label for="Pizza283">28cm</label><br>
+						<input type="radio" id="Pizza303" name="Pizzaart3" value="30cm">
+						<label for="Pizza303">30cm</label>
+					</div>
+					<button id="clickme2" class="btn2">Hinzufügen</button>
+				</div>
+				<div class="mid">
+					<img class="bild" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4TlloxuQSCWIG7Kny76KE3Up2uoLPgj_nUg&usqp=CAU">
+					<div class="kosten">
+						<h3>Kosten 7€</h3>
+					</div>
+					<div class="ware">
+						<h2>Schinken</h2>
+						<p>Pizza mit Tomatensauce, Käse und Schinken</p>
+					</div>
+					<div class="btn1">
+						<input type="radio" id="Pizza284" name="Pizzaart4" value="28cm">
+						<label for="Pizza284">28cm</label><br>
+						<input type="radio" id="Pizza304" name="Pizzaart4" value="30cm">
+						<label for="Pizza304">30cm</label>
+					</div>
+					<button id="clickme4" class="btn2">Hinzufügen</button>
+				</div>
+			</div>
+		</section>
+		<section class="footer">
+			<div class="container">
+				<a href="impressum.html">Impressum</a>
+				<a href="agb.html">AGB  </a>
+				<a href="standort.html">Standort</a>
+				<a href="bewerbung.html">Bewerben Sie Sich bei uns</a>			
+				</div>
+		</section>
+	</body>
+	<script>
+		var button = document.getElementById("clickme"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+		var button = document.getElementById("clickme1"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+		var button = document.getElementById("clickme2"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+		var button = document.getElementById("clickme4"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+	</script>
+</html>

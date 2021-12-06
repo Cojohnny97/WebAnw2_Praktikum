@@ -1,0 +1,162 @@
+*{
+	padding: 0px;
+	margin-bottom: 0px;
+}
+.panel{
+    background: grey;
+    padding: 12px 0 25px;
+}
+.container{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.container a{
+	color: black;
+	margin-left: 2rem;
+	margin-right: 3rem;
+	text-decoration: none;
+	font-size: 20px;
+}
+.mid{
+	display: flex;
+	margin-bottom: 2rem;	
+	border:2px solid grey;
+	width: 100%;
+	align-items: center;
+}
+.btn{
+	margin-right: 2rem;
+	padding-bottom: 2rem;
+    cursor: pointer;
+}
+.footer{
+	margin-top: 0rem;
+    background: grey;
+    padding: 12px 0 25px;
+}
+.footer a{
+	color: black;
+	margin-left: 2rem;
+	margin-right: 5rem;
+	text-decoration: none;
+	font-size: 16px;
+}
+.body{
+	padding-top: 1rem;
+	padding-right: 3rem;
+	padding-left: 1rem;
+	background-color: #f3f3f3;
+	height: 780px;
+}
+.btn1{
+	background-color: grey;
+	padding: 5px;
+	float: left;
+	margin-left: 330px;
+	color: white;
+}
+.btn2{
+	background-color: grey;
+	cursor: pointer;
+	align-items: top;
+	float: left;
+	margin-left: 10%;
+	align-items: center;
+	color: white;	
+	padding: 5px;
+}
+a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+a:hover {
+  background-color: #ddd;
+  color: black;
+}
+.überschrift{
+    color: rgb(214, 12, 12)
+}
+.bild{
+	object-fit: cover;
+	max-height: 120px;
+	width: 180px;
+}
+.buttonmitte{
+	float: right;
+	left: 15%;
+}
+.text{
+	align-items: left;
+	background-color: green;
+}
+.kosten{
+	float: left;
+	margin-left: 200px;
+	width: 100px;
+}
+.ware{
+	float: left;
+	width: 350px;
+	margin-left: 300px;	
+}
+.ware1{
+	float: left;
+	width: 350px;
+	margin-left: 30%;
+}
+.btn3{
+	padding-bottom: 2rem;
+	margin-left: 35%;
+	padding: 5px;
+	color: white;
+}
+.BoxRechts {
+	float: top;
+	width: 100%;
+	margin-left: 15%;
+}
+.BoxLinks{
+	float: left;
+	width: 100%;
+	height: 100%;
+}
+.mid2{
+	display: flex;	
+	width: 100%;
+	align-items: center;
+	height: 100%;
+}
+.warek{
+	float: center;
+	margin-left: 20px;
+	width: 350px;
+	margin-bottom: 15px;
+}
+.anzahlk{
+	float: center;
+	margin-left: 20px;
+	width: 50px;
+	margin-bottom: 15px;
+}
+.kostenk{
+	float: left;
+	width: 350px;
+	margin-left: 200px;	
+	margin-bottom: 15px;
+}
+.mid3{
+	display: flex;
+	margin-bottom: 1rem;	
+	border:2px solid grey;
+	width: 100%;
+	align-items: center;
+	padding: 5px;
+}
+.mid4{	
+	border:2px solid grey;
+	width: 100%;
+	padding: 10px;
+}

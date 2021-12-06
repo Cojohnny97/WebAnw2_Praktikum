@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Front Page</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+		<section class="panel">
+			<div class="container">
+				<a href="Startseite.html">Homepage</a>
+				<div class= "überschrift"><h1><u>Lieferservice Albstadt</u></h1></div>
+				<a href="warenkorb.html"><button id="clickme3">Warenkorb</button>	</a>	
+			</div>
+		</section>
+		<section>
+			<div class="body">
+				<div class="mid">
+				<img class="bild" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiL3lunyQF5D5tC3CvJVUcjrIdB1mOQixn8w&usqp=CAU" height="120" width="150">
+					<div class="ware1">
+						<h2>Pizza</h2>
+						<p>Margeritha ,Salami,Schinken,Mix</p>
+					</div>
+					<a class="btn3" href="pizza.html" style="background-color: grey;">Anschauen</a>
+				</div>
+				<div class="mid">
+					<img class="bild" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSywlbeKo-qhh_1nZY5nVdMgwI3A-cSIi92Jg&usqp=CAU" height="120" width="150">
+					<div class="ware1">
+						<h2>Pasta</h2>
+						<p>Napoli,Bolognese, Carbonare, Mare</p>
+					</div>
+					<a class="btn3" href="Pasta.html" style="background-color: grey;">Anschauen</a>
+				</div>
+				<div class="mid">
+					<img class="bild" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxGqimQE2oNZRszFPPz1mDFF00ZErf6nyOQA&usqp=CAU" height="120" width="150">
+					<div class="ware1">
+						<h2>Schnitzel</h2>
+						<p>Wiener,Zigeuner,Pfeffer,Bolognese</p>
+					</div>
+					<a class="btn3" href="schnitzel.html" style="background-color: grey">Anschauen</a>
+				</div>
+				<a href="bestellformular.html" style="margin-left: 2rem;margin-top: 1rem; margin-bottom: 5rem;background-color: grey; color:white;">Bestellen</a>
+			</div>
+		</section>
+		<section class="footer">
+			<div class="container">			
+				<a href="impressum.html">Impressum</a>
+				<a href="agb.html">AGB  </a>
+				<a href="standort.html">Standort</a>
+				<a href="bewerbung.html">Bewerben Sie Sich bei uns</a>		
+			</div>
+		</section>
+	</body>
+	<script>
+		var button = document.getElementById("clickme"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+		var button = document.getElementById("clickme1"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+		var button = document.getElementById("clickme2"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+		var button = document.getElementById("clickme4"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+		</script>
+</html>

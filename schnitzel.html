@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Schnitzel Page</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+		<section class="panel">
+		<div class="container">
+			<a href="Startseite.html">Homepage</a>
+			<div class= "überschrift"><h1><u>Lieferservice Albstadt</u></h1></div>
+			<a href="warenkorb.html"><button id="clickme3">Warenkorb</button></a>		
+		</div>
+		</section>
+
+		<section>
+			<div class="body">
+				<div class="mid">
+					<img class="bild" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxGqimQE2oNZRszFPPz1mDFF00ZErf6nyOQA&usqp=CAU">
+					<div class="kosten">	
+						<h3>Kosten 10€</h3>
+					</div>
+					<div class="ware">
+						<h2>Wiener</h2>
+						<p>Schnitzel Wiener Art</p>
+					</div>
+					<div class="btn1">
+						<input type="radio" id="SchnitzelK1" name="Schnitzel1" value="Kroketten">
+						<label for="SchnitzelK1">Kroketten</label><br>
+						<input type="radio" id="SchnitzelS1" name="Schnitzel1" value="Spätzle">
+						<label for="SchnitzelS1">Spätzle</label><br>
+						<input type="radio" id="SchnitzelP1" name="Schnitzel1" value="Pommes">
+						<label for="SchnitzelP1">Pommes</label>
+					</div>
+					<button id="clickme1" class="btn2">Hinzufügen</button>
+				</div>
+				<div class="mid">
+					<img class="bild" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDF6vE4BiBJn0XPF53uXhxHDO2sMINzRtgOg&usqp=CAU">
+					<div class="kosten">
+						<h3>Kosten 9€</h3>
+					</div>
+					<div class="ware">
+						<h2>Zigeuner</h2>
+						<p>Schnitzel mit einer Paprikasauce</p>
+					</div>
+					<div class="btn1">
+						<input type="radio" id="SchnitzelK2" name="Schnitzel2" value="Kroketten">
+						<label for="SchnitzelK2">Kroketten</label><br>
+						<input type="radio" id="SchnitzelS2" name="Schnitzel2" value="Spätzle">
+						<label for="SchnitzelS2">Spätzle</label><br>
+						<input type="radio" id="SchnitzelP2" name="Schnitzel2" value="Pommes">
+						<label for="SchnitzelP2">Pommes</label>
+					</div>
+					<button id="clickme" class="btn2">Hinzufügen</button>
+				</div>
+				<div class="mid">
+					<img class="bild" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk_eFhhmN7fRupdyVbFIokKhmsdUw-Dx8LXw&usqp=CAU">
+					<div class="kosten">
+						<h3>Kosten 11€</h3>
+					</div>
+					<div class="ware">
+						<h2>Bolognese</h2>
+						<p>Schnitzel mit Bolognesesauce und Käse überbacken</p>
+					</div>
+					<div class="btn1">
+						<input type="radio" id="SchnitzelK3" name="Schnitzel3" value="Kroketten">
+						<label for="SchnitzelK3">Kroketten</label><br>
+						<input type="radio" id="SchnitzelS3" name="Schnitzel3" value="Spätzle">
+						<label for="SchnitzelS3">Spätzle</label><br>
+						<input type="radio" id="SchnitzelP3" name="Schnitzel3" value="Pommes">
+						<label for="SchnitzelP3">Pommes</label>
+					</div>
+					<button id="clickme2" class="btn2">Hinzufügen</button>
+				</div>
+				<div class="mid">
+					<img class="bild" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKIT2QBP3gKuObXYNTfDvhdIOLlSBwPg8k4w&usqp=CAU">
+					<div class="kosten">
+						<h3>Kosten 9€</h3>
+					</div>
+					<div class="ware">
+						<h2>Pfeffer</h2>
+						<p>Schnitzel mit einer Pfeffersauce</p>
+					</div>
+					<div class="btn1">
+						<input type="radio" id="SchnitzelK4" name="Schnitzel4" value="Kroketten">
+						<label for="SchnitzelK4">Kroketten</label><br>
+						<input type="radio" id="SchnitzelS4" name="Schnitzel4" value="Spätzle">
+						<label for="SchnitzelS4">Spätzle</label><br>
+						<input type="radio" id="SchnitzelP4" name="Schnitzel4" value="Pommes">
+						<label for="SchnitzelP4">Pommes</label>
+					</div>
+					<button id="clickme4" class="btn2">Hinzufügen</button>
+				</div>
+			</div>
+		</section>
+		<section class="footer">
+			<div class="container">
+				<a href="impressum.html">Impressum</a>
+				<a href="agb.html">AGB  </a>
+				<a href="standort.html">Standort</a>
+				<a href="bewerbung.html">Bewerben Sie Sich bei uns</a>	
+			</div>
+		</section>
+		
+		
+	</body>
+	<script>
+		var button = document.getElementById("clickme"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+		var button = document.getElementById("clickme1"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+		var button = document.getElementById("clickme2"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+		var button = document.getElementById("clickme4"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+
+	</script>
+</html>

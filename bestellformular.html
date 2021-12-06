@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Bestellformular page</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+		<section class="panel">
+			<div class="container">		
+				<a href="Startseite.html">Homepage</a>
+				<div class= "überschrift"><h1><u>Lieferservice Albstadt</u></h1></div>
+				<a href="warenkorb.html">Warenkorb</a>				
+			</div>
+		</section>
+        <div class="body">
+            <h1>Bestelladresse und ihre Daten</h1>
+            <form>
+                <table>
+                    <tr>
+                        <td> 
+                            <label for="Anrede">Anrede:  </label>
+                        </td>
+                        <td>
+                            <input type="radio" id="Herr" name="anrede" value="Herr">
+                            <label for="Herr">Herr</label>
+                            <input type="radio" id="Frau" name="anrede" value="Frau">
+                            <label for="Frau">Frau</label>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td>
+                            <label for="Vname">Vorname:  </label>
+                        </td>
+                        <td>
+                            <input type="text" id="Vname">
+                        </td>
+                    </tr>
+                    <tr>     
+                        <td>
+                            <label for="Nname">Nachname:  </label>
+                        </td>
+                        <td>
+                            <input type="text" id="Nname">
+                        </td>
+                    </tr>
+                    <tr> 
+                        <td>
+                            <label for="email">Email Adresse:  </label>
+                        </td>
+                        <td>
+                            <input type="text" id="email">
+                        </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <label for="tel">Telefonnummer:  </label>
+                    </td>
+                    <td>
+                        <input type="number" pattern="[0-9]" id="tel">
+                    </td>
+                    </tr>
+                    <tr> 
+                        <td>
+                            <label for="adresse">Adresse und Postleizahl:   </label>
+                        </td>
+                        <td>
+                            <input type="text" id="adresse">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="nachbestellung.html" style="background-color: grey;color: white;">Bestellen</a>
+                        </td>
+                    </tr>     
+                </table>
+            </form>
+        </div>
+		<section class="footer">
+			<div class="container">
+				<a href="impressum.html">Impressum</a>
+				<a href="agb.html">AGB  </a>
+				<a href="standort.html">Standort</a>
+				<a href="bewerbung.html">Bewerben Sie Sich bei uns</a>				
+			</div>
+		</section>
+	</body>
+</html>

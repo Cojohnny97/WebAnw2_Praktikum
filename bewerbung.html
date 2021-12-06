@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Bestellformular page</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+		<section class="panel">
+			<div class="container">		
+				<a href="Startseite.html">Homepage</a>
+				<div class= "überschrift"><h1><u>Lieferservice Albstadt</u></h1></div>
+				<a href="warenkorb.html">Warenkorb</a>				
+			</div>
+		</section>
+        <div class="body">
+            <h1><u>Bewerben Sie sich bei uns</u></h1>
+            <br>
+            <form>
+                <table>
+                    <tr>
+                        <td> 
+                            <label for="Anrede">Anrede:</label>
+                        </td>
+                        <td>
+                            <input type="radio" id="Herr" name="anrede" value="Herr">
+                            <label for="Herr">Herr</label>
+                            <input type="radio" id="Frau" name="anrede" value="Frau">
+                            <label for="Frau">Frau</label>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td>
+                            <label for="Vname">Vorname:  </label>
+                        </td>
+                        <td>
+                            <input type="text" id="Vname">
+                        </td>
+                    </tr>
+                    <tr>     
+                        <td>
+                            <label for="Nname">Nachname:  </label>
+                        </td>
+                        <td>
+                            <input type="text" id="Nname">
+                        </td>
+                    </tr>
+                    <tr> 
+                        <td>
+                            <label for="email">Email Adresse:  </label>
+                        </td>
+                        <td>
+                            <input type="text" id="email">
+                        </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <label for="tel">Telefonnummer:  </label>
+                    </td>
+                    <td>
+                        <input type="number" pattern="[0-9]" id="tel">
+                    </td>
+                    </tr>
+                    <tr> 
+                        <td>
+                            <label for="adresse">Adresse:  </label>
+                        </td>
+                        <td>
+                            <input type="text" id="adresse">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> 
+                            <label for="Anrede">Schulausbildung:  </label>
+                        </td>
+                        <td>
+                            <input type="radio" id="Hauptschule" name="ausbildung" value="Herr">
+                            <label for="Hauptschule">Hauptschule</label>
+                            <input type="radio" id="Realschule" name="ausbildung" value="Frau">
+                            <label for="Realschule">Realschule</label>
+                            <input type="radio" id="Gymnasium" name="ausbildung" value="Herr">
+                            <label for="Gymnasium">Gymnasium</label>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td> 
+                            <label for="Anrede">Arbeitsplatz:  </label>
+                        </td>
+                        <td>
+                            <input type="radio" id="Fahrer" name="job" value="Herr">
+                            <label for="Fahrer">Fahrer</label>
+                            <input type="radio" id="Koch" name="job" value="Frau">
+                            <label for="Koch">Koch</label>
+                            <input type="radio" id="Telefonannahme" name="job" value="Herr">
+                            <label for="Telefonannahme">Telefonannahme</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> 
+                            <label for="Anrede">Erfahrung:  </label>
+                        </td>
+                        <td>
+                            <input type="radio" id="ja" name="erfahrung" value="Herr">
+                            <label for="ja">ja</label>
+                            <input type="radio" id="nein" name="erfahrung" value="Frau">
+                            <label for="nein">nein</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a onclick="javascript:alert('Ihre Bewerbung ist bei uns eingegangen wir werden uns in kürze bei ihnen melden.')">Absenden</a>
+                        </td>
+                    </tr>     
+                </table>
+                </form>
+            </div>
+            <br>
+            <section class="footer">
+                <div class="container">
+                    <a href="impressum.html">Impressum</a>
+				    <a href="agb.html">AGB  </a>
+				    <a href="standort.html">Standort</a>
+				    <a href="bewerbung.html">Bewerben Sie Sich bei uns</a>			
+                </div>
+            </section>
+	</body>
+</html>
