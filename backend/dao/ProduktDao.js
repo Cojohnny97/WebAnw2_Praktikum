@@ -93,6 +93,51 @@ class ProduktDao {
 
         return result.cnt == 1 ? true : false
     }
+
+    create(name = '',  beschreibung = '', nettopreis = 0.0, aufpreis = 0.0, bildpfad = '', mwstId = 1, kategorieId = 1) {
+        var sql = 'INSERT INTO Produkt (Name,Beschreibung,Nettopreis,Aufpreis,Bildpfad,MwstID,KategorieID) VALUES (?,?,?,?,?,?,?)'
+        var statement = this._conn.prepare(sql)
+        var params = [name, beschreibung, nettopreis, aufpreis, bildpfad, mwstId, kategorieId]
+        var result = statement.run(params)
+
+        if (result.changes != 1) {
+            throw new Error('Could not insert new Record. Data: ' + params)
+        }
+
+        return this.getById(result.lastInsertRowid)
+    }
+
+    update(id, name = '',  beschreibung = '', nettopreis = 0.0, aufpreis = 0.0, bildpfad = '', mwstId = 1, kategorieId = 1) {
+        var sql = 'UPDATE Produkt SET Name=?,Beschreibung=?,Nettopreis=?,Aufpreis=?,Bildpfad=?,MwstID=?,KategorieID=? WHERE ID=?'
+        var statement = this._conn.prepare(sql)
+        var params = [name, beschreibung, nettopreis, aufpreis, bildpfad, mwstId, kategorieId, id]
+        var result = statement.run(params)
+
+        if (result.changes != 1) {
+            throw new Error('Could not insert new Record. Data: ' + params)
+        }
+
+        return this.getById(id)
+    }
+
+    delete(id) {
+        try {
+            var sql = 'DELETE FROM Produkt WHERE ID=?'
+            var statement = this._conn.prepare(sql)
+            var result = statement.run(id)
+
+            if (result.changes != 1) {
+                throw new Error('Could not delete Record by id=' + id)
+            }
+            return true
+        } catch (ex) {
+            throw new Error('Could not delete Record by id=' + id + '. Reason: ' + ex.message)
+        }
+    }
+
+    toString() {
+        helper.log('ProduktDao [_conn=' + this._conn + ']')
+    }
 }
 
 module.exports = ProduktDao
