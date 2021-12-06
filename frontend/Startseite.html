@@ -39,6 +39,8 @@
 					<a class="btn3" href="schnitzel.html" style="background-color: grey">Anschauen</a>
 				</div>
 				<a href="bestellformular.html" style="margin-left: 2rem;margin-top: 1rem; margin-bottom: 5rem;background-color: grey; color:white;">Bestellen</a>
+				<button id="test">Erstelle Kategorie</button>
+				<div id="ergebnis"></div>
 			</div>
 		</section>
 		<section class="footer">
@@ -49,8 +51,31 @@
 				<a href="bewerbung.html">Bewerben Sie Sich bei uns</a>		
 			</div>
 		</section>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
 	</body>
-	<script>
+
+	<script >
+		$('#test').click(function(){
+			console.log('started')
+			var obj = { name: 'Pasta', beschreibung: 'Paschtaa', bildpfad: 'pfaaad'}
+
+			$.ajax({
+                url: 'http://localhost:8000/webanw2/kategorie',
+                method: 'post',
+                dataType: 'json',
+				contentType: 'application/json',
+				data: JSON.stringify(obj)
+            }).done(function (response) {
+				console.log(response)
+				$('#ergebnis').html(JSON.stringify(response))
+			}).fail(function (jqXHR, statusText, error) {
+                console.log('Response Code: ' + jqXHR.status + ' - Fehlermeldung: ' + jqXHR.responseText);
+                $('#ergebnis').html('Ein Fehler ist aufgetreten');
+            })
+		})
+
+
 		var button = document.getElementById("clickme"),
 			count = 0;
 		button.onclick = function() {

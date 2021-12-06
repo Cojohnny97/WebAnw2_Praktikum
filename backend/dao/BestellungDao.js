@@ -103,23 +103,26 @@ class BestellungDao {
         return result.cnt == 1 ? true : false
     }
 
-    create(kundeId = null, zeitpunkt = null, bestellpositionen = []) {
+    create(zeitpunkt = null, bestellpositionen = [], kunde = {}) {
         const bestellpositionDao = new BestellpositionDao(this._conn)
+        const kundeDao = new KundeDao(this._conn)
 
         if (helper.isNull(zeitpunkt)) {
             zeitpunkt = helper.getNow()
         }
 
+        let kundeObj = kundeDao.create(kunde.anrede, kunde.vorname, kunde.nachname, kunde.email, kunde.telefonnummer, kunde.adresse, kunde.plz, kunde.ort)
+        
         var sql = 'INSERT INTO Bestellung (Zeitpunkt,KundeID) VALUES (?,?)'
         var statement = this._conn.prepare(sql)
-        var params = [helper.formatToSQLDateTime(zeitpunkt), kundeId]
+        var params = [helper.formatToSQLDateTime(zeitpunkt), kundeObj.id]
         var result = statement.run(params)
 
         if (result.changes != 1) {
             throw new Error('Could not insert new Record. Data: ' + params)
         }
 
-        if (bestellpositionen.length > 0) { // Warum müssen die bestehenden Positionen nochmal created werden?
+        if (bestellpositionen.length > 0) { 
             for (var position of bestellpositionen) {
                 bestellpositionDao.create(position.produkt.id, result.lastInsertRowid, position.durchmesser, position.menge)
             }

@@ -66,7 +66,7 @@ serviceRouter.post('/kategorie', function(request, response) {
 
     const kategorieDao = new KategorieDao(request.app.locals.dbConnection)
     try {
-        var result = kategorieDao.create(request.body.name, request.body.bezeichnung, request.body.bildpfad)
+        var result = kategorieDao.create(request.body.name, request.body.beschreibung, request.body.bildpfad)
         helper.log('Service Kategorie: Record inserted')
         response.status(200).json(helper.jsonMsgOK(result))
     } catch (ex) {
@@ -96,7 +96,7 @@ serviceRouter.put('/kategorie', function(request, response) {
 
     const kategorieDao = new KategorieDao(request.app.locals.dbConnection)
     try {
-        var result = kategorieDao.update(request.body.id, request.body.name, request.body.bezeichnung, request.body.bildpfad)
+        var result = kategorieDao.update(request.body.id, request.body.name, request.body.beschreibung, request.body.bildpfad)
         helper.log('Service Kategorie: Record updated, id=' + request.body.id)
         response.status(200).json(helper.jsonMsgOK(result))
     } catch (ex) {
