@@ -3,6 +3,7 @@
 	<head>
 		<title>Front Page</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="js/sessionHandling.js"></script>
 	</head>
 	<body>
 		<section class="panel">
@@ -13,31 +14,7 @@
 			</div>
 		</section>
 		<section>
-			<div class="body">
-				<div class="mid">
-				<img class="bild" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiL3lunyQF5D5tC3CvJVUcjrIdB1mOQixn8w&usqp=CAU" height="120" width="150">
-					<div class="ware1">
-						<h2>Pizza</h2>
-						<p>Margeritha ,Salami,Schinken,Mix</p>
-					</div>
-					<a class="btn3" href="pizza.html" style="background-color: grey;">Anschauen</a>
-				</div>
-				<div class="mid">
-					<img class="bild" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSywlbeKo-qhh_1nZY5nVdMgwI3A-cSIi92Jg&usqp=CAU" height="120" width="150">
-					<div class="ware1">
-						<h2>Pasta</h2>
-						<p>Napoli,Bolognese, Carbonare, Mare</p>
-					</div>
-					<a class="btn3" href="Pasta.html" style="background-color: grey;">Anschauen</a>
-				</div>
-				<div class="mid">
-					<img class="bild" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxGqimQE2oNZRszFPPz1mDFF00ZErf6nyOQA&usqp=CAU" height="120" width="150">
-					<div class="ware1">
-						<h2>Schnitzel</h2>
-						<p>Wiener,Zigeuner,Pfeffer,Bolognese</p>
-					</div>
-					<a class="btn3" href="schnitzel.html" style="background-color: grey">Anschauen</a>
-				</div>
+			<div class="body" id="categories">
 				<a href="bestellformular.html" style="margin-left: 2rem;margin-top: 1rem; margin-bottom: 5rem;background-color: grey; color:white;">Bestellen</a>
 				<button id="test">Erstelle Kategorie</button>
 				<div id="ergebnis"></div>
@@ -60,6 +37,39 @@
 	</body>
 
 	<script >
+		$(document).ready(function() {
+            console.log('Document ready, loading all categories from Service')
+
+            $.ajax({
+                url: 'http://localhost:8000/webanw2/kategorie/alle',
+                method: 'get',
+				dataType: 'json'
+            }).done(function (response) {
+                console.log(response.daten)
+				setSessionItem('allCategories', response)
+
+				var content = ''
+				for (i = 0; i < response.daten.length; i++) {
+					var obj = response.daten[i]
+					content += '<div class="mid">'
+					content += `<img class="bild" src="${obj.bildpfad}" height="120" width="150">`
+					content += '<div class="ware1">'
+					content += '<h2>' + obj.name + '</h2>'
+					content += '<p>' + obj.beschreibung + '</p>'
+					content += '</div>'
+					content += `<a class="btn3" href="${obj.name}.html" style="background-color: grey;">Anschauen</a>`
+					content += '</div>'
+				}
+				$('#categories').html(content)
+            }).fail(function (jqXHR, statusText, error) {
+                console.log('Error occured');
+                console.log('Response Code: ' + jqXHR.status + ' - Message: ' + jqXHR.responseText);
+                alert(jqXHR.responseText);
+            });
+        });
+
+
+
 		$('#test').click(function(){
 			var obj = { 
 				name: 'Pizza', 
