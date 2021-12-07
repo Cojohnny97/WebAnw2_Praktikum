@@ -80,7 +80,7 @@ class ProduktDao {
         result = helper.arrayObjectKeysToLower(result)
 
         for (let i = 0; i < result.length; i++) {
-            for (let t = 0; t < taxes.length -1; t++) {
+            for (let t = 0; t < taxes.length; t++) {
                 if (taxes[t].id == result[i].mwstid) {
                     result[i].mehrwertsteuer = taxes[t]
                     break
@@ -96,6 +96,7 @@ class ProduktDao {
             }
             delete result[i].kategorieid
             result[i].bruttopreis = helper.round(result[i].nettopreis + (result[i].nettopreis * (result[i].mehrwertsteuer.satz / 100)))
+            console.log(result[i])
         }
         return result
     }
