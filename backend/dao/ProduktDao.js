@@ -17,11 +17,10 @@ class ProduktDao {
         var result = statement.get(id)
         
         result = helper.objectKeysToLower(result)
-
-        result.kategorie = kategorieDao.getById(result.kategorieId)
+        result.kategorie = kategorieDao.getById(result.kategorieid)
         delete result.kategorieId
 
-        result.mehrwertsteuer = mehrwertsteuerDao.getById(result.mwstId)
+        result.mehrwertsteuer = mehrwertsteuerDao.getById(result.mwstid)
         delete result.mwstId
 
         result.bruttopreis = helper.round(result.nettopreis + (result.nettopreis * (result.mehrwertsteuer.satz / 100)))
@@ -33,7 +32,7 @@ class ProduktDao {
         var categories = kategorieDao.getAll()
         const mehrwertsteuerDao = new MehrwertsteuerDao(this._conn)
         var taxes = mehrwertsteuerDao.getAll()
-        
+
         var sql = 'SELECT * FROM Produkt'
         var statement = this._conn.prepare(sql)
         var result = statement.all()
@@ -41,23 +40,30 @@ class ProduktDao {
         if (helper.isArrayEmpty(result)) {
             return []
         }
-
         result = helper.arrayObjectKeysToLower(result)
 
         for (let i = 0; i < result.length; i++) {
-            result[i].mehrwertsteuer = taxes.find(tax => tax.id === result[i].mwstId)
-            delete result[i].mwstId
+            for (let t = 0; t < taxes.length; t++) {
+                if (taxes[t].id == result[i].mwstid) {
+                    result[i].mehrwertsteuer = taxes[t]
+                }
+            }
+            delete result[i].mwstid
 
-            result[i].kategorie = categories.find(c => c.id === result[i].kategorieId)
-            delete result[i].kategorieId
-
+            for (let c = 0; c < categories.length; c++) {
+                if (categories[c].id == result[i].kategorieid) {
+                    result[i].kategorie = categories[c]
+                    break
+                }
+            }
+            delete result[i].kategorieid
             result[i].bruttopreis = helper.round(result[i].nettopreis + (result[i].nettopreis * (result[i].mehrwertsteuer.satz / 100)))
         }
 
         return result
     }
 
-    getByParent(kategorieId) {
+    getByCategory(kategorieId) {
         const kategorieDao = new KategorieDao(this._conn)
         var categories = kategorieDao.getAll()
         const mehrwertsteuerDao = new MehrwertsteuerDao(this._conn)
@@ -74,15 +80,23 @@ class ProduktDao {
         result = helper.arrayObjectKeysToLower(result)
 
         for (let i = 0; i < result.length; i++) {
-            result[i].mehrwertsteuer = taxes.find(tax => tax.id === result[i].mwstId)
-            delete result[i].mwstId
+            for (let t = 0; t < taxes.length -1; t++) {
+                if (taxes[t].id == result[i].mwstid) {
+                    result[i].mehrwertsteuer = taxes[t]
+                    break
+                }
+            }
+            delete result[i].mwstid
 
-            result[i].kategorie = categories.find(c => c.id === result[i].kategorieId)
-            delete result[i].kategorieId
-
+            for (let c = 0; c < categories.length; c++) {
+                if (categories[c].id == result[i].kategorieid) {
+                    result[i].kategorie = categories[c]
+                    break
+                }
+            }
+            delete result[i].kategorieid
             result[i].bruttopreis = helper.round(result[i].nettopreis + (result[i].nettopreis * (result[i].mehrwertsteuer.satz / 100)))
         }
-
         return result
     }
 

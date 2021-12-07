@@ -23,8 +23,8 @@ class BestellungDao {
         result.zeitpunkt = helper.formatToGermanDateTime(helper.parseSQLDateTimeString(result.zeitpunkt))
 
         
-        result.kunde = helper.isNull(result.kundeId) ? null : kundeDao.getById(result.kundeId)
-        delete result.kundeId
+        result.kunde = helper.isNull(result.kundeid) ? null : kundeDao.getById(result.kundeid)
+        delete result.kundeid
 
         result.bestellpositionen = bestellpositionDao.getByParent(result.id)
 
@@ -40,14 +40,15 @@ class BestellungDao {
         result.total.brutto = helper.round(result.total.brutto)
         result.total.mehrwertsteuer = helper.round(result.total.mehrwertsteuer)
 
+        console.log(result)
         return result
     }
 
     getAll() {
         const bestellpositionDao = new BestellpositionDao(this._conn)
-        var positions = bestellpositionDao.loadAll()
+        var positions = bestellpositionDao.getAll()
         const kundeDao = new KundeDao(this._conn)
-        var kunden = kundeDao.loadAll();
+        var kunden = kundeDao.getAll()
 
         var sql = 'SELECT * FROM Bestellung';
         var statement = this._conn.prepare(sql);
@@ -112,7 +113,7 @@ class BestellungDao {
         }
 
         let kundeObj = kundeDao.create(kunde.anrede, kunde.vorname, kunde.nachname, kunde.email, kunde.telefonnummer, kunde.adresse, kunde.plz, kunde.ort)
-        
+        console.log(kundeObj)
         var sql = 'INSERT INTO Bestellung (Zeitpunkt,KundeID) VALUES (?,?)'
         var statement = this._conn.prepare(sql)
         var params = [helper.formatToSQLDateTime(zeitpunkt), kundeObj.id]
@@ -124,7 +125,7 @@ class BestellungDao {
 
         if (bestellpositionen.length > 0) { 
             for (var position of bestellpositionen) {
-                bestellpositionDao.create(position.produkt.id, result.lastInsertRowid, position.durchmesser, position.menge)
+                bestellpositionDao.create(position.produktid, result.lastInsertRowid, position.durchmesser, position.menge)
             }
         }
 
@@ -150,7 +151,7 @@ class BestellungDao {
         
         if (bestellpositionen.length > 0) {
             for (var position of bestellpositionen) {
-                bestellpositionDao.create(position.produkt.id, id, position.durchmesser, position.menge);
+                bestellpositionDao.create(position.produktid, id, position.durchmesser, position.menge)
             }
         }
         return this.getById(id)

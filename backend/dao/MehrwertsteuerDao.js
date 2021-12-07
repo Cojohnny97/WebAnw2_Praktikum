@@ -25,7 +25,7 @@ class MehrwertsteuerDao {
         var statement = this._conn.prepare(sql)
         var result = statement.all()
 
-        return helper.isArrayEmpty(result) ? [] : helper.arrayObjectKeysToLower(result)
+        return helper.isArrayEmpty(result) ? [] : result
 
     }
 

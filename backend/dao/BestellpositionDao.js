@@ -26,14 +26,14 @@ class BestellpositionDao {
 
         result = helper.objectKeysToLower(result)
 
-        result.bestellung = { 'id': result.bestellungid }
-        delete result.bestellungid
+        result.bestellung = { 'id': result.bestellid }
+        delete result.bestellid
         
-        result.produkt = produktDao.getById(result.produktid)
-        delete result.produktid
+        result.produkt = produktDao.getById(result.productid)
+        delete result.productid
 
         result.nettosumme = result.durchmesser && result.durchmesser == 30 ? helper.round(result.menge * (result.produkt.nettopreis + result.produkt.aufpreis || 0)) : helper.round(result.menge * result.produkt.nettopreis) // bswp: 2 * (5,00 + 2,00) = 14,00€
-        result.mehrwertsteuersumme = (mehrwertsteuerDao.getById(result.produkt.mwstId).satz / 100) * result.nettosumme // bspw. 0,19 * 14) = 2,66€
+        result.mehrwertsteuersumme = (mehrwertsteuerDao.getById(result.produkt.mehrwertsteuer.id).satz / 100) * result.nettosumme // bspw. 0,19 * 14) = 2,66€
         result.bruttosumme = helper.round(result.nettosumme + result.mehrwertsteuersumme) // bspw: 14,00 + 2,66 = 16,66€
 
         return result
@@ -55,19 +55,19 @@ class BestellpositionDao {
         result = helper.arrayObjectKeysToLower(result)
 
         for (let i = 0; i < result.length; i++) {
-            result[i].bestellung = { 'id': result[i].bestellungid }
-            delete result[i].bestellungid
+            result[i].bestellung = { 'id': result[i].bestellid }
+            delete result[i].bestellid
         
-            for (let product of products) {
-                if (product.id == result[i].produktid) {
-                    result[i].produkt = product
+            for (let p = 0; p < products.length; p++) {
+                if (products[p].id == result[i].productid) {
+                    result[i].produkt = products[p]
                     break
                 }
             }
-            delete result[i].produktid
+            delete result[i].productid
 
             result[i].nettosumme = result[i].durchmesser && result[i].durchmesser == 30 ? helper.round(result[i].menge * (result[i].produkt.nettopreis + result[i].produkt.aufpreis || 0)) : helper.round(result[i].menge * result[i].produkt.nettopreis)
-            result[i].mehrwertsteuersumme = (mehrwertsteuerDao.getById(result[i].produkt.mwstId).satz / 100) * result[i].nettosumme 
+            result[i].mehrwertsteuersumme = (mehrwertsteuerDao.getById(result[i].produkt.mehrwertsteuer.id).satz / 100) * result[i].nettosumme 
             result[i].bruttosumme = helper.round(result[i].nettosumme + result[i].mehrwertsteuersumme)
         }
 
@@ -91,19 +91,19 @@ class BestellpositionDao {
         result = helper.arrayObjectKeysToLower(result)
 
         for (let i = 0; i < result.length; i++) {
-            result[i].bestellung = { 'id': result[i].bestellungid }
-            delete result[i].bestellungid
+            result[i].bestellung = { 'id': result[i].bestellid }
+            delete result[i].bestellid
         
-            for (let product of products) {
-                if (product.id == result[i].produktid) {
-                    result[i].produkt = product
+            for (let p = 0; p < products.length; p++) {
+                if (products[p].id == result[i].productid) {
+                    result[i].produkt = products[p]
                     break
                 }
             }
-            delete result[i].produktid
+            delete result[i].productid
 
             result[i].nettosumme = result[i].durchmesser && result[i].durchmesser == 30 ? helper.round(result[i].menge * (result[i].produkt.nettopreis + result[i].produkt.aufpreis || 0)) : helper.round(result[i].menge * result[i].produkt.nettopreis) 
-            result[i].mehrwertsteuersumme = (mehrwertsteuerDao.getById(result[i].produkt.mwstId).satz / 100) * result[i].nettosumme 
+            result[i].mehrwertsteuersumme = (mehrwertsteuerDao.getById(result[i].produkt.mehrwertsteuer.id).satz / 100) * result[i].nettosumme 
             result[i].bruttosumme = helper.round(result[i].nettosumme + result[i].mehrwertsteuersumme)
         }
 

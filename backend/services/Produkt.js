@@ -17,7 +17,21 @@ serviceRouter.get('/produkt/gib/:id', function(request, response) {
         helper.logError('Service Produkt: Error geting record by id. Exception occured: ' + ex.message)
         response.status(400).json(helper.jsonMsgError(ex.message))
     }
-});
+})
+
+serviceRouter.get('/produkt/kategorie/:id', function(request, response) {
+    helper.log('Service Produkt: Client requested one record, id=' + request.params.id)
+
+    const produktDao = new ProduktDao(request.app.locals.dbConnection)
+    try {
+        var result = produktDao.getByCategory(request.params.id)
+        helper.log('Service Produkt: Record loaded')
+        response.status(200).json(helper.jsonMsgOK(result))
+    } catch (ex) {
+        helper.logError('Service Produkt: Error geting record by id. Exception occured: ' + ex.message)
+        response.status(400).json(helper.jsonMsgError(ex.message))
+    }
+})
 
 serviceRouter.get('/produkt/alle/', function(request, response) {
     helper.log('Service Produkt: Client requested all records')

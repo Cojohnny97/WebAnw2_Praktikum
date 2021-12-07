@@ -41,6 +41,10 @@
 				<a href="bestellformular.html" style="margin-left: 2rem;margin-top: 1rem; margin-bottom: 5rem;background-color: grey; color:white;">Bestellen</a>
 				<button id="test">Erstelle Kategorie</button>
 				<div id="ergebnis"></div>
+				<button id="testbestellung">Erstelle Bestellung</button>
+				<div id="ergebnisbestellung"></div>
+				<button id="kuunde">Kunde Test</button>
+				<div id="kuundeergebnis"></div>
 			</div>
 		</section>
 		<section class="footer">
@@ -57,8 +61,11 @@
 
 	<script >
 		$('#test').click(function(){
-			console.log('started')
-			var obj = { name: 'Pasta', beschreibung: 'Paschtaa', bildpfad: 'pfaaad'}
+			var obj = { 
+				name: 'Pizza', 
+				beschreibung: 'Pizza aller Arten', 
+				bildpfad: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiL3lunyQF5D5tC3CvJVUcjrIdB1mOQixn8w&usqp=CAU'
+			}
 
 			$.ajax({
                 url: 'http://localhost:8000/webanw2/kategorie',
@@ -72,6 +79,84 @@
 			}).fail(function (jqXHR, statusText, error) {
                 console.log('Response Code: ' + jqXHR.status + ' - Fehlermeldung: ' + jqXHR.responseText);
                 $('#ergebnis').html('Ein Fehler ist aufgetreten');
+            })
+		})
+
+		$('#kuunde').click(function(){
+			var obj = {
+					anrede: 'Herr',
+					vorname: 'Max',
+					nachname: 'Mustermann',
+					email: 'max@mustermann.de',
+					telefonnummer: '0128251248',
+					adresse: 'Musterstraße 3',
+					plz: '72459',
+					ort: 'Albstadt'
+				}
+
+			$.ajax({
+                url: 'http://localhost:8000/webanw2/kunde',
+                method: 'post',
+                dataType: 'json',
+				contentType: 'application/json',
+				data: JSON.stringify(obj)
+            }).done(function (response) {
+				console.log(response)
+				$('#kuundeergebnis').html(JSON.stringify(response))
+			}).fail(function (jqXHR, statusText, error) {
+                console.log('Response Code: ' + jqXHR.status + ' - Fehlermeldung: ' + jqXHR.responseText);
+                $('#kuundeergebnis').html('Ein Fehler ist aufgetreten');
+            })
+		})
+
+		$('#testbestellung').click(function(){
+			var obj = { 
+				bestellpositionen: [
+					{
+						produktid: 1,
+						durchmesser: 28,
+						menge: 2
+					},
+					{
+						produktid: 1,
+						durchmesser: 30,
+						menge: 1
+					},
+					{
+						produktid: 2,
+						durchmesser: 30,
+						menge: 1
+					},
+					{
+						produktid: 3,
+						durchmesser: 30,
+						menge: 2
+					},
+				], 
+				kunde: {
+					anrede: 'Herr',
+					vorname: 'Max',
+					nachname: 'Mustermann',
+					email: 'max@mustermann.de',
+					telefonnummer: '3018532',
+					adresse: 'Einbahnstraße 44',
+					plz: '72458',
+					ort: 'Albstadt'
+				}
+			}
+
+			$.ajax({
+                url: 'http://localhost:8000/webanw2/bestellung',
+                method: 'post',
+                dataType: 'json',
+				contentType: 'application/json',
+				data: JSON.stringify(obj)
+            }).done(function (response) {
+				console.log(response)
+				$('#ergebnisbestellung').html(JSON.stringify(response))
+			}).fail(function (jqXHR, statusText, error) {
+                console.log('Response Code: ' + jqXHR.status + ' - Fehlermeldung: ' + jqXHR.responseText);
+                $('#ergebnisbestellung').html('Ein Fehler ist aufgetreten');
             })
 		})
 

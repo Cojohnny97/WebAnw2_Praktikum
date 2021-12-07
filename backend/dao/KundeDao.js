@@ -44,7 +44,7 @@ class KundeDao {
         return result.cnt == 1 ? true : false
     }
 
-    create(anrede = 'Herr', vorname = '', nachname = '', email = '', telefonnummer = '', adresse = '', plz = null, ort='') {
+    create(anrede = 'Herr', vorname = '', nachname = '', email = '', telefonnummer = '', adresse = '', plz = '', ort='') {
         var sql = 'INSERT INTO Kunde (Anrede,Vorname,Nachname,Email,Telefonnummer,Adresse,Plz,Ort) VALUES (?,?,?,?,?,?,?,?)'
         var statement = this._conn.prepare(sql)
         var params = [(anrede == 'Herr' ? 0 : 1), vorname, nachname, email, telefonnummer, adresse, plz, ort]
