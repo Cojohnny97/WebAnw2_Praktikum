@@ -97,7 +97,7 @@ a:hover {
 .kosten{
 	float: left;
 	margin-left: 200px;
-	width: 100px;
+	width: 101px;
 	position: absolute;
     left: 9%;
 }
@@ -114,10 +114,10 @@ a:hover {
 	margin-left: 30%;
 }
 .btn3{
-	padding-bottom: 2rem;
-	margin-left: 35%;
 	padding: 5px;
 	color: white;
+	position: absolute;
+	right: 3%;
 }
 .BoxRechts {
 	float: top;

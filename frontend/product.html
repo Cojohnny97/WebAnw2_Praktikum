@@ -47,7 +47,7 @@
 					var obj = response.daten[i]
 					content += '<div class="mid">'
 					content += `<img class="bild" src="${obj.bildpfad}">`
-					content += '<div class="kosten"><h3>Kosten: ' + new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(obj.nettopreis) + `<h4>(zzgl. ${obj.mehrwertsteuer.satz}% Mwst.)</h4></h3></div>`
+					content += '<div class="kosten"><h3>Kosten: ' + new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(obj.nettopreis) + `<br><span style="font-size: small">(zzgl. ${obj.mehrwertsteuer.satz}% Mwst.)</span></h3></div>`
 					content += '<div class="ware">'
 					content += '<h2>' + obj.name + '</h2>'
 					content += '<p>' + obj.beschreibung + '</p>'
