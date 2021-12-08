@@ -106,7 +106,7 @@ class ProduktDao {
         var statement = this._conn.prepare(sql)
         var result = statement.get(id)
 
-        return result.cnt == 1 ? true : false
+        return result.cnt == 1 ? true : false 
     }
 
     create(name = '',  beschreibung = '', nettopreis = 0.0, aufpreis = 0.0, bildpfad = '', mwstId = 1, kategorieId = 1) {
