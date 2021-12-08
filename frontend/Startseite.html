@@ -39,8 +39,6 @@
 	<script >
 		$(document).ready(function() {
             console.log('Document ready, loading all categories from Service')
-			const search = new URLSearchParams(window.location.search)
-			console.log(search.get('blub'))
 
             $.ajax({
                 url: 'http://localhost:8000/webanw2/kategorie/alle',

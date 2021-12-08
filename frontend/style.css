@@ -24,6 +24,7 @@
 	border:2px solid grey;
 	width: 100%;
 	align-items: center;
+	position: relative;
 }
 .btn{
 	margin-right: 2rem;
@@ -55,16 +56,17 @@
 	float: left;
 	margin-left: 330px;
 	color: white;
+	position: absolute;
+    right: 15%;
 }
 .btn2{
 	background-color: grey;
 	cursor: pointer;
-	align-items: top;
-	float: left;
-	margin-left: 10%;
 	align-items: center;
 	color: white;	
 	padding: 5px;
+	right: 3%;
+    position: absolute;
 }
 a {
   text-decoration: none;
@@ -96,11 +98,15 @@ a:hover {
 	float: left;
 	margin-left: 200px;
 	width: 100px;
+	position: absolute;
+    left: 9%;
 }
 .ware{
 	float: left;
 	width: 350px;
 	margin-left: 300px;	
+	position: absolute;
+    left: 24%;
 }
 .ware1{
 	float: left;
