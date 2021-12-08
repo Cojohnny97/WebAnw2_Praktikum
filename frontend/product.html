@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Product Page</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script src="js/sessionHandling.js"></script>
+	</head>
+	<body>
+		<section class="panel">
+		<div class="container">
+			<a href="Startseite.html">Homepage</a>
+			<div class= "überschrift"><h1><u>Lieferservice Albstadt</u></h1></div>
+			<a href="warenkorb.html"><button id="clickme3">Warenkorb</button>	</a>		
+		</div>
+		</section>
+		<section>
+			<div class="body" id="products">
+			</div>
+		</section>
+		<section class="footer">
+			<div class="container">
+				<a href="impressum.html">Impressum</a>
+				<a href="agb.html">AGB  </a>
+				<a href="standort.html">Standort</a>
+				<a href="bewerbung.html">Bewerben Sie Sich bei uns</a>			
+				</div>
+		</section>
+	</body>
+	<script>
+
+		$(document).ready(function() {
+			var search = new URLSearchParams(window.location.search)
+			var id = search.get('id')
+			console.log(`Loading all products with CategoryId=${id}`)
+
+			$.ajax({
+				url: `http://localhost:8000/webanw2/produkt/kategorie/${id}`,
+				method: 'get',
+				dataType: 'json'
+			}).done(function (response) {
+				console.log(response.daten)
+				setSessionItem(`category${id}`, response.daten)
+
+				var content = ''
+				for (i = 0; i < response.daten.length; i++) {
+					var obj = response.daten[i]
+					content += '<div class="mid">'
+					content += `<img class="bild" src="${obj.bildpfad}">`
+					content += '<div class="kosten"><h3>Kosten: ' + new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(obj.nettopreis) + `<h4>(zzgl. ${obj.mehrwertsteuer.satz}% Mwst.)</h4></h3></div>`
+					content += '<div class="ware">'
+					content += '<h2>' + obj.name + '</h2>'
+					content += '<p>' + obj.beschreibung + '</p>'
+					content += '</div>'
+					content += '<div class="btn1">'
+					if (obj.kategorie.id == 1) {
+						content += '<input type="radio" id="Pizza281" name="Pizzaart1" value="28cm">'
+						content += '<label for="Pizza281">28cm</label><br>'
+						content += '<input type="radio" id="Pizza301" name="Pizzaart1" value="30cm">'
+						content += '<label for="Pizza301">30cm</label>'
+					} else if (obj.kategorie.id == 2 ) {
+						content += '<input type="radio" id="PastaartS1" name="pastanapoli" value="Spaghetti">'
+						content += '<label for="PastaartS1">Spaghetti</label><br>'
+						content += '<input type="radio" id="PastaartG1" name="pastanapoli" value="Gnocchi">'
+						content += '<label for="PastaartG1">Gnocchi</label><br>'
+						content += '<input type="radio" id="PastaartP1" name="pastanapoli" value="Fusilli">'
+						content += '<label for="PastaartP1">Fusilli</label>'
+					} else if (obj.kategorie.id == 3) {
+						content += '<input type="radio" id="SchnitzelK1" name="Schnitzel1" value="Kroketten">'
+						content += '<label for="SchnitzelK1">Kroketten</label><br>'
+						content += '<input type="radio" id="SchnitzelS1" name="Schnitzel1" value="Sp&Auml;tzle">'
+						content += '<label for="SchnitzelS1">Spätzle</label><br>'
+						content += '<input type="radio" id="SchnitzelP1" name="Schnitzel1" value="Pommes">'
+						content += '<label for="SchnitzelP1">Pommes</label>'
+					}
+					content += '</div>'
+					content += '<button id="clickme1" class="btn2">Hinzuf&uuml;gen</button>'
+					content += '</div>'
+				}
+				$('#products').html(content)
+			}).fail(function (jqXHR, statusText, error) {
+				console.log('Error occured');
+				console.log('Response Code: ' + jqXHR.status + ' - Message: ' + jqXHR.responseText);
+				alert(jqXHR.responseText);
+			});
+		});
+
+		var button = document.getElementById("clickme"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+		var button = document.getElementById("clickme1"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+		var button = document.getElementById("clickme2"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+		var button = document.getElementById("clickme4"),
+			count = 0;
+		button.onclick = function() {
+			count += 1;
+			button = document.getElementById("clickme3");
+			button.innerHTML = "Warenkorb "+count ;
+		};
+	</script>
+</html>

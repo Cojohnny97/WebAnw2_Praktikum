@@ -39,6 +39,8 @@
 	<script >
 		$(document).ready(function() {
             console.log('Document ready, loading all categories from Service')
+			const search = new URLSearchParams(window.location.search)
+			console.log(search.get('blub'))
 
             $.ajax({
                 url: 'http://localhost:8000/webanw2/kategorie/alle',
@@ -57,7 +59,7 @@
 					content += '<h2>' + obj.name + '</h2>'
 					content += '<p>' + obj.beschreibung + '</p>'
 					content += '</div>'
-					content += `<a class="btn3" href="${obj.name}.html" style="background-color: grey;">Anschauen</a>`
+					content += `<a class="btn3" href="product.html?id=${obj.id}" style="background-color: grey;">Anschauen</a>`
 					content += '</div>'
 				}
 				$('#categories').html(content)
