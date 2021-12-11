@@ -11,7 +11,7 @@
 		<div class="container">
 			<a href="Startseite.html">Homepage</a>
 			<div class= "überschrift"><h1><u>Lieferservice Albstadt</u></h1></div>
-			<a href="warenkorb.html"><button id="clickme3">Warenkorb</button>	</a>		
+			<a href="warenkorb.html"><button id="cart">Warenkorb</button>	</a>		
 		</div>
 		</section>
 		<section>
@@ -30,17 +30,18 @@
 	<script>
 
 		$(document).ready(function() {
+			// removeSessionItem('bestellpositionen')
+			// removeSessionItem('idCounter')
+			console.log(getSessionItem('bestellpositionen'))
 			var search = new URLSearchParams(window.location.search)
-			var id = search.get('id')
+			var id = search.get('id') || 1
 			console.log(`Loading all products with CategoryId=${id}`)
-
 			$.ajax({
 				url: `http://localhost:8000/webanw2/produkt/kategorie/${id}`,
 				method: 'get',
 				dataType: 'json'
 			}).done(function (response) {
 				console.log(response.daten)
-				setSessionItem(`category${id}`, response.daten)
 
 				var content = ''
 				for (i = 0; i < response.daten.length; i++) {
@@ -52,66 +53,167 @@
 					content += '<h2>' + obj.name + '</h2>'
 					content += '<p>' + obj.beschreibung + '</p>'
 					content += '</div>'
-					content += '<div class="btn1">'
+					content += `<input id="menge${obj.id}" type="number" class="quantity">`
+					content += '<div id="auswahl" class="btn1">'
 					if (obj.kategorie.id == 1) {
-						content += '<input type="radio" id="Pizza281" name="Pizzaart1" value="28cm">'
+						content += `<input type="radio" id="28cm${obj.id}" name="Pizzaart1" value="0">`
 						content += '<label for="Pizza281">28cm</label><br>'
-						content += '<input type="radio" id="Pizza301" name="Pizzaart1" value="30cm">'
+						content += `<input type="radio" id="30cm${obj.id}" name="Pizzaart1" value="1">`
 						content += '<label for="Pizza301">30cm</label>'
 					} else if (obj.kategorie.id == 2 ) {
-						content += '<input type="radio" id="PastaartS1" name="pastanapoli" value="Spaghetti">'
+						content += `<input type="radio" id="0_${obj.id}" name="pastanapoli" value="0">`
 						content += '<label for="PastaartS1">Spaghetti</label><br>'
-						content += '<input type="radio" id="PastaartG1" name="pastanapoli" value="Gnocchi">'
+						content += `<input type="radio" id="1_${obj.id}" name="pastanapoli" value="1">`
 						content += '<label for="PastaartG1">Gnocchi</label><br>'
-						content += '<input type="radio" id="PastaartP1" name="pastanapoli" value="Fusilli">'
+						content += `<input type="radio" id="2_${obj.id}" name="pastanapoli" value="2">`
 						content += '<label for="PastaartP1">Fusilli</label>'
 					} else if (obj.kategorie.id == 3) {
-						content += '<input type="radio" id="SchnitzelK1" name="Schnitzel1" value="Kroketten">'
+						content += `<input type="radio" id="0_${obj.id}" name="Schnitzel1" value="0">`
 						content += '<label for="SchnitzelK1">Kroketten</label><br>'
-						content += '<input type="radio" id="SchnitzelS1" name="Schnitzel1" value="Sp&Auml;tzle">'
+						content += `<input type="radio" id="1_${obj.id}" name="Schnitzel1" value="1">`
 						content += '<label for="SchnitzelS1">Spätzle</label><br>'
-						content += '<input type="radio" id="SchnitzelP1" name="Schnitzel1" value="Pommes">'
+						content += `<input type="radio" id="2_${obj.id}" name="Schnitzel1" value="2">`
 						content += '<label for="SchnitzelP1">Pommes</label>'
 					}
 					content += '</div>'
-					content += '<button id="clickme1" class="btn2">Hinzuf&uuml;gen</button>'
+					content += `<button id="product${obj.id}" onclick="add({id:${obj.id}, kategorieId:${obj.kategorie.id}})" class="btn2">Hinzuf&uuml;gen</button>`
 					content += '</div>'
 				}
 				$('#products').html(content)
 			}).fail(function (jqXHR, statusText, error) {
-				console.log('Error occured');
-				console.log('Response Code: ' + jqXHR.status + ' - Message: ' + jqXHR.responseText);
-				alert(jqXHR.responseText);
+				console.log('Error occured')
+				console.log('Response Code: ' + jqXHR.status + ' - Message: ' + jqXHR.responseText)
+				alert(jqXHR.responseText)
 			});
 		});
 
-		var button = document.getElementById("clickme"),
-			count = 0;
-		button.onclick = function() {
-			count += 1;
-			button = document.getElementById("clickme3");
-			button.innerHTML = "Warenkorb "+count ;
-		};
-		var button = document.getElementById("clickme1"),
-			count = 0;
-		button.onclick = function() {
-			count += 1;
-			button = document.getElementById("clickme3");
-			button.innerHTML = "Warenkorb "+count ;
-		};
-		var button = document.getElementById("clickme2"),
-			count = 0;
-		button.onclick = function() {
-			count += 1;
-			button = document.getElementById("clickme3");
-			button.innerHTML = "Warenkorb "+count ;
-		};
-		var button = document.getElementById("clickme4"),
-			count = 0;
-		button.onclick = function() {
-			count += 1;
-			button = document.getElementById("clickme3");
-			button.innerHTML = "Warenkorb "+count ;
-		};
+		function gesamtMenge() {
+			let arrayBestellpositionen = JSON.parse(getSessionItem('bestellpositionen')) || []
+			if (arrayBestellpositionen.length > 0) {
+				let gesamt = arrayBestellpositionen.map(b => b.menge).reduce((acc, cur) => {
+								return acc + cur
+							})
+				return gesamt
+			} else {
+				return 0
+			}
+		}
+		let cart = document.getElementById("cart")
+		cart.innerHTML = "Warenkorb " + gesamtMenge()
+
+		function add(data) {
+			let id = data.id
+			let kategorieId = data.kategorieId
+			let menge = document.getElementById(`menge${id}`).value
+			if (menge == '') { //case: keine Menge eingegeben
+				alert('Sie müssen eine Menge angeben!')
+			} else if (menge <= 0) { //case: negative Menge oder 0 eingegeben
+				alert('Die Menge muss mindestens 1 betragen')
+			} else {
+				let positionId
+				if (!existsSessionItem('idCounter')) {
+					setSessionItem('idCounter', JSON.stringify(1))
+					positionId = JSON.parse(getSessionItem('idCounter'))
+					console.log(positionId)
+				} else {
+					let counter = JSON.parse(getSessionItem('idCounter'))
+					let newId = parseInt(counter) + 1
+					setSessionItem('idCounter', JSON.stringify(newId))
+					positionId = JSON.parse(getSessionItem('idCounter'))
+					console.log(positionId)
+				}
+				let bestellposition
+				if (kategorieId == 1) { //case: Pizza
+					if ((!document.getElementById(`28cm${id}`).checked) && (!document.getElementById(`30cm${id}`).checked)) { //case: keine Größe angegeben
+						alert('Sie müssen eine Größe auswählen')
+					} else { //alle Daten vorhanden
+						let durchmesser
+						document.getElementById(`28cm${id}`).checked ? durchmesser = 28 : durchmesser = 30
+						menge = parseInt(menge)
+						bestellposition = {
+							id: positionId,
+							produktid: id,
+							durchmesser,
+							menge
+						}
+						if (!existsSessionItem('bestellpositionen')) { //case: lokales Bestellposition-Array existiert noch nicht
+							let bestellpositionArray = [bestellposition]
+							setSessionItem('bestellpositionen', JSON.stringify(bestellpositionArray))
+						} else { //lokales Bestellposition-Array existiert bereits
+							let bestellpositionArray = JSON.parse(getSessionItem('bestellpositionen'))
+							let existingPosition = bestellpositionArray.find(b => b.produktid == bestellposition.produktid && b.durchmesser == bestellposition.durchmesser)
+							if (!existingPosition) { //case: keine gleiche existierende Position
+								bestellpositionArray.push(bestellposition)
+								setSessionItem('bestellpositionen', JSON.stringify(bestellpositionArray))
+							} else { //case: existierende Position
+								console.log()
+								let summarizedPosition = {
+									id: existingPosition.id,
+									produktid: existingPosition.produktid,
+									durchmesser: existingPosition.durchmesser,
+									menge: bestellposition.menge + existingPosition.menge
+								}
+								var removeIndex = bestellpositionArray.findIndex(b => b.produktid === existingPosition.produktid && b.durchmesser === existingPosition.durchmesser)
+								if (removeIndex != -1) {
+									bestellpositionArray.splice(removeIndex, 1)
+								}
+								bestellpositionArray.push(summarizedPosition)
+								setSessionItem('bestellpositionen', JSON.stringify(bestellpositionArray))
+							}
+						} 
+
+					}
+
+				} else { //case: Pasta/Schnitzel
+					if ((!document.getElementById(`0_${id}`).checked) && (!document.getElementById(`1_${id}`).checked) && (!document.getElementById(`2_${id}`).checked)) { //case: keine Auswahl getroffen
+						kategorieId == 2 ? alert('Sie müssen eine Nudelart auswählen') : alert('Sie müssen eine Beilage auswählen')
+					} else { //alle Daten vorhanden
+						let auswahl
+						if (document.getElementById(`0_${id}`).checked) {
+							auswahl = 0
+						} else if (document.getElementById(`1_${id}`).checked) {
+							auswahl = 1
+						} else {
+							auswahl = 2
+						}
+						menge = parseInt(menge)
+						bestellposition = {
+							id: positionId,
+							produktid: id,
+							auswahl,
+							menge
+						}
+						if (!existsSessionItem('bestellpositionen')) { //case: lokales Bestellposition-Array existiert noch nicht
+							let bestellpositionArray = [bestellposition]
+							setSessionItem('bestellpositionen', JSON.stringify(bestellpositionArray))
+						} else { //lokales Bestellposition-Array existiert bereits
+							let bestellpositionArray = JSON.parse(getSessionItem('bestellpositionen'))
+							let existingPosition = bestellpositionArray.find(b => b.produktid == bestellposition.produktid && b.auswahl == bestellposition.auswahl)
+							if (!existingPosition) { //case: keine existierende Position
+								bestellpositionArray.push(bestellposition)
+								setSessionItem('bestellpositionen', JSON.stringify(bestellpositionArray))
+							} else { //case: existierende Position
+								console.log()
+								let summarizedPosition = {
+									id: existingPosition.positionId,
+									produktid: existingPosition.produktid,
+									auswahl: existingPosition.auswahl,
+									menge: bestellposition.menge + existingPosition.menge
+								}
+								var removeIndex = bestellpositionArray.findIndex(b => b.produktid === existingPosition.produktid && b.auswahl === existingPosition.auswahl)
+								if (removeIndex != -1) {
+									bestellpositionArray.splice(removeIndex, 1)
+								}
+								bestellpositionArray.push(summarizedPosition)
+								setSessionItem('bestellpositionen', JSON.stringify(bestellpositionArray))
+							}
+						} 
+					}
+				} 
+			}
+			console.log(getSessionItem('bestellpositionen'))
+			let cart = document.getElementById("cart")
+			cart.innerHTML = "Warenkorb " + gesamtMenge()	
+		}
 	</script>
 </html>

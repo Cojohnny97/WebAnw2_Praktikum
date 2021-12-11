@@ -3,63 +3,32 @@
 	<head>
 		<title>Shopping Cart</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="js/sessionHandling.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	</head>
 	<body>
 		<section class="panel">
 			<div class="container">		
 				<a href="Startseite.html">Homepage</a>
 				<div class= "überschrift"><h1><u>Lieferservice Albstadt</u></h1></div>
-				<a href="warenkorb.html"><button id="clickme3">Warenkorb</button>	</a>				
+				<a href="warenkorb.html"><button id="cart">Warenkorb</button>	</a>				
 			</div>
 		</section>
 		<section>
 			<div class="body">
 				<div class="mid2">
-				<div class="BoxLinks">
-				<h2>Warenkorb &#128722;</h2>
-				<div class="mid3">
-					<div class="warek">	
-						<h3>Pizza Hawaii 28cm</h3>
-					</div><div class="anzahlk">	
-						<h3>1x</h3>
+					<div class="BoxLinks">
+						<h2 style="margin-bottom: 10px">Warenkorb &#128722;</h2>
+						<div id="empty"></div>
+						<div id="bestellpositionen"></div>
 					</div>
-					<div class="kostenk">
-						<h3>8€</h3>
-					</div>
-					<div class="btn2">Löschen</div>
-				</div>
-				<div class="mid3">
-					<div class="warek">	
-						<h3>Spagehti Frutti di Mare</h3>
-					</div>
-					<div class="anzahlk">	
-						<h3>1x</h3>
-					</div>
-					<div class="kostenk">
-						<h3>10€</h3>
-					</div>
-					<div class="btn2">Löschen</div>
-				</div>
-				<div class="mid3">
-					<div class="warek">	
-						<h3>Wiener Schnitzel mit Pommes</h3>
-					</div>
-					<div class="anzahlk">	
-						<h3>1x</h3>
-					</div>
-					<div class="kostenk">
-						<h3>10€</h3>
-					</div>
-					<div class="btn2">Löschen</div>
-				</div>
-				</div>
-				<div class="BoxRechts">
-					<div class="mid4">
-						<p>Die Summe der Artikel beträgt: 28€</p>
-						<a href="bestellformular.html" style="background-color: grey; color: white;" >Bestellen</a>
+					<div class="BoxRechts">
+						<div class="mid4">
+							<p>Die Summe der Artikel beträgt: 28€</p>
+							<a href="bestellformular.html" style="background-color: grey; color: white;" >Bestellen</a>
+						</div>
 					</div>
 				</div>
-			</div>
 			</div>
 		</section>
 		<section class="footer">
@@ -72,33 +41,80 @@
 		</section>
 	</body>
 	<script>
-		var button = document.getElementById("clickme"),
-			count = 0;
-		button.onclick = function() {
-			count += 1;
-			button = document.getElementById("clickme3");
-			button.innerHTML = "Warenkorb "+count ;
-		};
-		var button = document.getElementById("clickme1"),
-			count = 0;
-		button.onclick = function() {
-			count += 1;
-			button = document.getElementById("clickme3");
-			button.innerHTML = "Warenkorb "+count ;
-		};
-		var button = document.getElementById("clickme2"),
-			count = 0;
-		button.onclick = function() {
-			count += 1;
-			button = document.getElementById("clickme3");
-			button.innerHTML = "Warenkorb "+count ;
-		};
-		var button = document.getElementById("clickme4"),
-			count = 0;
-		button.onclick = function() {
-			count += 1;
-			button = document.getElementById("clickme3");
-			button.innerHTML = "Warenkorb "+count ;
-		};
+		$(document).ready(function() {
+
+			let bestellpositionArray = JSON.parse(getSessionItem('bestellpositionen'))
+			console.log(bestellpositionArray)
+			if (!bestellpositionArray || bestellpositionArray.length == 0) {
+				let empty = document.getElementById('empty')
+				empty.innerHTML = 'Ihr Warenkorb ist leer.'
+			} else {
+				var content = ''
+				for (let position of bestellpositionArray) {
+					$.ajax({
+						url: `http://localhost:8000/webanw2/produkt/gib/${position.produktid}`,
+						method: 'get',
+						dataType: 'json'
+					}).done(function (response) {
+						var obj = response.daten
+						console.log(obj)
+						content += '<div class="mid3">'
+						if (obj.kategorie.id == 1) {
+							content += '<div class="warek"><h3>' + obj.name + ' ' + position.durchmesser + 'cm</h3></div>'
+						} else if (obj.kategorie.id == 2) {
+							let auswahl
+							if (position.auswahl == 0) {
+								auswahl = 'Spaghetti'
+							} else if (position.auswahl == 1) {
+								auswahl = 'Gnocchi'
+							} else {
+								auswahl = 'Fusilli'
+							}
+							content += '<div class="warek"><h3>' + obj.name + ' (' + auswahl + ')</h3></div>'
+						} else {
+							let auswahl
+							if (position.auswahl == 0) {
+								auswahl = 'Kroketten'
+							} else if (position.auswahl == 1) {
+								auswahl = 'Spätzle'
+							} else {
+								auswahl = 'Pommes'
+							}
+							content += '<div class="warek"><h3>' + obj.name + ' mit ' + auswahl + '</h3></div>'
+						}
+						content += '<div class="anzahlk"><h3>' + position.menge + 'x</h3></div>'
+						let preis = position.menge * obj.nettopreis
+						content += '<div class="kostenk"><h3>' + new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(preis) +'</h3></div>'
+						content += `<button onclick="remove(${position.id})" class="btn2">Löschen</button>`
+						content += '</div>'
+						$('#bestellpositionen').html(content)
+					}).fail(function (jqXHR, statusText, error) {
+						console.log('Error occured')
+						console.log('Response Code: ' + jqXHR.status + ' - Message: ' + jqXHR.responseText)
+						alert(jqXHR.responseText)
+					})
+				}
+			}
+		})
+
+		function remove(id = 0) {
+			console.log(id)
+			let bestellpositionArray = JSON.parse(getSessionItem('bestellpositionen'))
+			var removeIndex = bestellpositionArray.findIndex(b => b.id === id)
+			bestellpositionArray.splice(removeIndex, 1)
+			setSessionItem('bestellpositionen', JSON.stringify(bestellpositionArray))
+		}
+
+
+		function gesamtMenge() {
+			let arrayBestellpositionen = JSON.parse(getSessionItem('bestellpositionen')) || []
+			let gesamt = arrayBestellpositionen.map(b => b.menge).reduce((acc, cur) => {
+                            return acc + cur
+                        })
+			return gesamt
+
+		}
+		let cart = document.getElementById("cart")
+		cart.innerHTML = "Warenkorb " + gesamtMenge()
 		</script>
 </html>

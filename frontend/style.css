@@ -25,6 +25,7 @@
 	width: 100%;
 	align-items: center;
 	position: relative;
+	border-radius: 8px;
 }
 .btn{
 	margin-right: 2rem;
@@ -57,7 +58,12 @@
 	margin-left: 330px;
 	color: white;
 	position: absolute;
-    right: 15%;
+    right: 21%;
+}
+.quantity{
+	position: absolute;
+	right: 13%;
+	width: 50px;
 }
 .btn2{
 	background-color: grey;
@@ -85,6 +91,7 @@ a:hover {
 	object-fit: cover;
 	max-height: 120px;
 	width: 180px;
+	border-radius: 9px;
 }
 .buttonmitte{
 	float: right;
@@ -160,6 +167,7 @@ a:hover {
 	width: 100%;
 	align-items: center;
 	padding: 5px;
+	position: relative;
 }
 .mid4{	
 	border:2px solid grey;
