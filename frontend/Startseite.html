@@ -165,13 +165,16 @@
 
 		function gesamtMenge() {
 			let arrayBestellpositionen = JSON.parse(getSessionItem('bestellpositionen')) || []
-			let gesamt = arrayBestellpositionen.map(b => b.menge).reduce((acc, cur) => {
-                            return acc + cur
-                        })
-			return gesamt
-
+			if (arrayBestellpositionen.length > 0) {
+				let gesamt = arrayBestellpositionen.map(b => b.menge).reduce((acc, cur) => {
+								return acc + cur
+							})
+				return gesamt
+			} else {
+				return 0
+			}
 		}
-		let cart = document.getElementById("cart")
-		cart.innerHTML = "Warenkorb " + gesamtMenge()
+		let cart = document.getElementById('cart')
+		cart.innerHTML = 'Warenkorb (' + gesamtMenge() + ')'
 		</script>
 </html>

@@ -5,6 +5,7 @@
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<script src="js/sessionHandling.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body>
 		<section class="panel">
@@ -53,13 +54,13 @@
 					content += '<h2>' + obj.name + '</h2>'
 					content += '<p>' + obj.beschreibung + '</p>'
 					content += '</div>'
-					content += `<input id="menge${obj.id}" type="number" class="quantity">`
+					content += `<div class="quantity"><label for="menge${obj.id}">Menge</label><input style="width: 50px;" id="menge${obj.id}" type="number" ></div>`
 					content += '<div id="auswahl" class="btn1">'
 					if (obj.kategorie.id == 1) {
 						content += `<input type="radio" id="28cm${obj.id}" name="Pizzaart1" value="0">`
 						content += '<label for="Pizza281">28cm</label><br>'
 						content += `<input type="radio" id="30cm${obj.id}" name="Pizzaart1" value="1">`
-						content += '<label for="Pizza301">30cm</label>'
+						content += '<label for="Pizza301">30cm (+' + obj.aufpreis +'€)</label>'
 					} else if (obj.kategorie.id == 2 ) {
 						content += `<input type="radio" id="0_${obj.id}" name="pastanapoli" value="0">`
 						content += '<label for="PastaartS1">Spaghetti</label><br>'
@@ -98,8 +99,8 @@
 				return 0
 			}
 		}
-		let cart = document.getElementById("cart")
-		cart.innerHTML = "Warenkorb " + gesamtMenge()
+		let cart = document.getElementById('cart')
+		cart.innerHTML = 'Warenkorb (' + gesamtMenge() + ')'
 
 		function add(data) {
 			let id = data.id
@@ -212,8 +213,8 @@
 				} 
 			}
 			console.log(getSessionItem('bestellpositionen'))
-			let cart = document.getElementById("cart")
-			cart.innerHTML = "Warenkorb " + gesamtMenge()	
+			let cart = document.getElementById('cart')
+			cart.innerHTML = 'Warenkorb (' + gesamtMenge() + ')'	
 		}
 	</script>
 </html>

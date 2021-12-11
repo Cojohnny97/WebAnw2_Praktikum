@@ -3,6 +3,8 @@
 	<head>
 		<title>Bestellformular page</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
+        <script src="js/sessionHandling.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	</head>
 	<body>
 		<section class="panel">
@@ -61,15 +63,31 @@
                     </tr>
                     <tr> 
                         <td>
-                            <label for="adresse">Adresse und Postleizahl:   </label>
+                            <label for="adresse">Adresse:   </label>
                         </td>
                         <td>
                             <input type="text" id="adresse">
                         </td>
                     </tr>
+                    <tr> 
+                        <td>
+                            <label for="plz">Postleizahl:   </label>
+                        </td>
+                        <td>
+                            <input type="text" id="plz">
+                        </td>
+                    </tr>
+                    <tr> 
+                        <td>
+                            <label for="ort">Ort:   </label>
+                        </td>
+                        <td>
+                            <input type="text" id="ort">
+                        </td>
+                    </tr>
                     <tr>
                         <td>
-                            <a href="nachbestellung.html" style="background-color: grey;color: white;">Bestellen</a>
+                            <a onclick="bestellen()" style="background-color: grey;color: white;">Bestellen</a>
                         </td>
                     </tr>     
                 </table>
@@ -85,3 +103,76 @@
 		</section>
 	</body>
 </html>
+<script>
+    $(document).ready(function () {
+        let bestellpositionen = JSON.parse(getSessionItem('bestellpositionen'))
+        console.log(bestellpositionen)
+    })
+    function bestellen () {
+        let anrede
+        if (document.getElementById('Herr').checked || document.getElementById('Frau').checked){
+            anrede = document.getElementById('Herr').checked ? 'Herr' : 'Frau'
+        } else {
+            anrede = ''
+        }
+        let vorname = document.getElementById('Vname').value
+        let nachname = document.getElementById('Nname').value
+        let email = document.getElementById('email').value
+        let telefonnummer = document.getElementById('tel').value
+        let adresse = document.getElementById('adresse').value
+        let plz = document.getElementById('plz').value
+        let ort = document.getElementById('ort').value
+        if (!anrede || anrede == '') {
+            alert('Wählen Sie eine Anrede aus')
+        } else if (!vorname || vorname == '') {
+            alert('Überprüfen Sie den Vornamen')
+        } else if (!nachname || nachname == '') {
+            alert('Überprüfen Sie den Nachnamen')
+        } else if (!email || email == '') {
+            alert('Überprüfen Sie die E-Mail')
+        } else if (!telefonnummer || telefonnummer == '') {
+            alert('Überprüfen Sie die Telefonnummer')
+        } else if (!adresse || adresse == '') {
+            alert('Überprüfen Sie die Adresse')
+        } else if (!plz || plz == '') {
+            alert('Überprüfen Sie die Postleitzahl')
+        } else if (!ort || ort == '') {
+            alert('Überprüfen Sie den Ort')
+        } else {
+            let kunde = {
+                anrede,
+                vorname,
+                nachname,
+                email,
+                telefonnummer,
+                adresse,
+                plz,
+                ort
+            }
+            let bestellpositionen = JSON.parse(getSessionItem('bestellpositionen'))
+            let bestellObject = {
+                bestellpositionen,
+                kunde
+            }
+            console.log(bestellObject)
+            $.ajax({
+                url: 'http://localhost:8000/webanw2/bestellung',
+                method: 'post',
+                dataType: 'json',
+				contentType: 'application/json',
+				data: JSON.stringify(bestellObject)
+            }).done(function (response) {
+				let bestellung = response.daten
+                let bestellId = bestellung.id
+                removeSessionItem('bestellpositionen')
+                removeSessionItem('idCounter')
+                window.location.href = `bestelluebersicht.html?id=${bestellId}`
+			}).fail(function (jqXHR, statusText, error) {
+                console.log('Response Code: ' + jqXHR.status + ' - Fehlermeldung: ' + jqXHR.responseText);
+                $('#ergebnisbestellung').html('Ein Fehler ist aufgetreten');
+            })
+        }
+        
+    }
+
+</script>

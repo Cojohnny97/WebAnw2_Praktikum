@@ -101,7 +101,7 @@ class BestellpositionDao {
                 }
             }
             delete result[i].productid
-
+            
             result[i].nettosumme = result[i].durchmesser && result[i].durchmesser == 30 ? helper.round(result[i].menge * (result[i].produkt.nettopreis + result[i].produkt.aufpreis || 0)) : helper.round(result[i].menge * result[i].produkt.nettopreis) 
             result[i].mehrwertsteuersumme = (mehrwertsteuerDao.getById(result[i].produkt.mehrwertsteuer.id).satz / 100) * result[i].nettosumme 
             result[i].bruttosumme = helper.round(result[i].nettosumme + result[i].mehrwertsteuersumme)
@@ -118,10 +118,10 @@ class BestellpositionDao {
         return result.cnt == 1 ? true : false
     }
 
-    create(productid = 1, bestellid = 1,  durchmesser = 28, menge = 1) {
-        var sql = 'INSERT INTO Bestellposition (ProductID,BestellID,Durchmesser,Menge) VALUES (?,?,?,?)'
+    create(productid = 1, bestellid = 1,  durchmesser, auswahl, menge = 1) {
+        var sql = 'INSERT INTO Bestellposition (ProductID,BestellID,Durchmesser,Auswahl,Menge) VALUES (?,?,?,?,?)'
         var statement = this._conn.prepare(sql)
-        var params = [productid, bestellid, durchmesser, menge]
+        var params = [productid, bestellid, durchmesser, auswahl, menge]
         var result = statement.run(params)
 
         if (result.changes != 1) {
@@ -129,19 +129,6 @@ class BestellpositionDao {
         }
 
         return this.getById(result.lastInsertRowid)
-    }
-
-    update(id, productid = 1, bestellid = 1,  durchmesser = 28, menge = 1) {
-        var sql = 'UPDATE Bestellposition SET ProductID=?,BestellID=?,Durchmesser=?,Menge=? WHERE ID=?'
-        var statement = this._conn.prepare(sql)
-        var params = [productid, bestellid, durchmesser, menge]
-        var result = statement.run(params)
-
-        if (result.changes != 1) {
-            throw new Error('Could not update existing Record. Data: ' + params)
-        }
-
-        return this.getById(id)
     }
 
     delete(id) {

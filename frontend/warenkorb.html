@@ -24,8 +24,9 @@
 					</div>
 					<div class="BoxRechts">
 						<div class="mid4">
-							<p>Die Summe der Artikel beträgt: 28€</p>
-							<a href="bestellformular.html" style="background-color: grey; color: white;" >Bestellen</a>
+							<p id="gesamtsumme"></p>
+							<p id="brutto" style="font-size: larger; font-weight: 600; margin-bottom: 10px;	"></p>
+							<a href="bestellformular.html" style="background-color: grey; color: white;" >Jetzt bestellen</a>
 						</div>
 					</div>
 				</div>
@@ -48,6 +49,8 @@
 			if (!bestellpositionArray || bestellpositionArray.length == 0) {
 				let empty = document.getElementById('empty')
 				empty.innerHTML = 'Ihr Warenkorb ist leer.'
+				let gesamtsummeDiv = document.getElementById('gesamtsumme')
+				gesamtsummeDiv.innerHTML = 'Die Summe der Artikel beträgt: 0€'
 			} else {
 				var content = ''
 				for (let position of bestellpositionArray) {
@@ -83,8 +86,13 @@
 							content += '<div class="warek"><h3>' + obj.name + ' mit ' + auswahl + '</h3></div>'
 						}
 						content += '<div class="anzahlk"><h3>' + position.menge + 'x</h3></div>'
-						let preis = position.menge * obj.nettopreis
-						content += '<div class="kostenk"><h3>' + new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(preis) +'</h3></div>'
+						let preis
+						if (obj.kategorie.id == 1 && position.durchmesser == 30) {
+							preis = position.menge * (obj.nettopreis + obj.aufpreis)
+						} else {
+							preis = position.menge * obj.nettopreis
+						}
+						content += '<div class="kostenk"><h3>' + new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(preis) + `</h3></div>`
 						content += `<button onclick="remove(${position.id})" class="btn2">Löschen</button>`
 						content += '</div>'
 						$('#bestellpositionen').html(content)
@@ -93,28 +101,71 @@
 						console.log('Response Code: ' + jqXHR.status + ' - Message: ' + jqXHR.responseText)
 						alert(jqXHR.responseText)
 					})
+					gesamtPreis()
 				}
 			}
 		})
 
-		function remove(id = 0) {
-			console.log(id)
+		function gesamtPreis () {
+			let bestellpositionArray = JSON.parse(getSessionItem('bestellpositionen'))
+			let gesamtsummeDiv = document.getElementById('gesamtsumme')
+			let bruttoDiv = document.getElementById('brutto')
+			if (bestellpositionArray && bestellpositionArray.length > 0 ) {
+				let gesamtpreis = 0
+				let mehrwertsteuerAnteil = 0
+				for (let position of bestellpositionArray) {
+					$.ajax({
+						url: `http://localhost:8000/webanw2/produkt/gib/${position.produktid}`,
+						method: 'get',
+						dataType: 'json'
+					}).done(function (response) {
+						var obj = response.daten
+						let nettoSumme
+						if (obj.kategorie.id == 1 && position.durchmesser == 30) {
+							nettoSumme = position.menge * (obj.nettopreis + obj.aufpreis)
+						} else {
+							nettoSumme = position.menge * obj.nettopreis
+						}
+						mehrwertsteuerAnteil += (nettoSumme * (obj.mehrwertsteuer.satz / 100))
+						gesamtpreis += nettoSumme
+						mwstRounded = Math.round(mehrwertsteuerAnteil*Math.pow(10,2))/Math.pow(10,2)
+						let bruttopreis = mwstRounded + gesamtpreis
+						gesamtsummeDiv.innerHTML = 'Die Summe der Artikel beträgt: ' + new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(gesamtpreis) + ` + ${new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(mwstRounded)} Mwst.`
+						bruttoDiv.innerHTML = `= ${new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(bruttopreis)}`
+					}).fail(function (jqXHR, statusText, error) {
+						console.log('Error occured')
+						console.log('Response Code: ' + jqXHR.status + ' - Message: ' + jqXHR.responseText)
+						alert(jqXHR.responseText)
+					})
+				}
+			}
+		}
+
+		function remove(id) {
 			let bestellpositionArray = JSON.parse(getSessionItem('bestellpositionen'))
 			var removeIndex = bestellpositionArray.findIndex(b => b.id === id)
 			bestellpositionArray.splice(removeIndex, 1)
+			if (bestellpositionArray.length == 0 || !existsSessionItem('idCounter'))
+				removeSessionItem('idCounter')
 			setSessionItem('bestellpositionen', JSON.stringify(bestellpositionArray))
+			gesamtPreis() //Zum aktualisieren des Preises
+			window.location.reload() //reactivity fix
 		}
 
 
 		function gesamtMenge() {
 			let arrayBestellpositionen = JSON.parse(getSessionItem('bestellpositionen')) || []
-			let gesamt = arrayBestellpositionen.map(b => b.menge).reduce((acc, cur) => {
-                            return acc + cur
-                        })
-			return gesamt
+			if (arrayBestellpositionen.length > 0) {
+				let gesamt = arrayBestellpositionen.map(b => b.menge).reduce((acc, cur) => {
+					return acc + cur
+				})
+				return gesamt
+			} else {
+				return 0
+			}
 
 		}
-		let cart = document.getElementById("cart")
-		cart.innerHTML = "Warenkorb " + gesamtMenge()
+		let cart = document.getElementById('cart')
+		cart.innerHTML = 'Warenkorb (' + gesamtMenge() + ')'
 		</script>
 </html>

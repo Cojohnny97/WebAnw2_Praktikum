@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Close page</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	</head>
+	<body>
+		<section class="panel">
+			<div class="container">		
+				<a href="Startseite.html">Homepage</a>
+				<div class= "überschrift"><h1><u>Lieferservice Albstadt</u></h1></div>
+				<a href="warenkorb.html">Warenkorb</a>				
+			</div>
+		</section>
+		<section>
+			<div style="margin-bottom: 10px;" class="body">
+				<h2 id="thanks"></h2><br><br>
+				<h2 style="margin-bottom: 20px;"> Ihre Bestell&uuml;bersicht: </h2>
+				<div id="table" style="margin-left:15px;"></div>
+				<h3 id="additional" style="margin-top: 20px;"></h3>
+			</div>
+		</section>
+		<section class="footer">
+			<div class="container">
+				<a href="impressum.html">Impressum</a>
+				<a href="agb.html">AGB  </a>
+				<a href="standort.html">Standort</a>
+				<a href="bewerbung.html">Bewerben Sie Sich bei uns</a>				
+			</div>
+		</section>
+	</body>
+</html>
+
+<script>
+	$(document).ready(function() {
+		var search = new URLSearchParams(window.location.search)
+		var id = search.get('id')
+		console.log(`Loading order with id=${id}`)
+		$.ajax({
+				url: `http://localhost:8000/webanw2/bestellung/gib/${id}`,
+				method: 'get',
+				dataType: 'json'
+			}).done(function (response) {
+				let bestellung = response.daten
+				console.log(bestellung)
+				let kunde = bestellung.kunde
+				let thanksDiv = document.getElementById('thanks')
+				thanksDiv.innerHTML = `Vielen Dank ${kunde.anrede} ${kunde.nachname}, Ihre Bestellung wurde erfolgreich aufgegeben!`
+				let content = '<table style="font-size="larger">'
+				for (let position of bestellung.bestellpositionen) {
+					content += '<tr>'
+					content += `<th style="text-align: left; width:50px;">${position.menge}x</th>`
+					if (position.durchmesser) {
+						content += `<th style="text-align: left; width:350px;">${position.produkt.name} (${position.durchmesser}cm)</th>`
+					} else {
+						let auswahl 
+						if (position.auswahl == 0) {
+							auswahl = position.produkt.kategorie.id == 2 ? 'Spaghetti' : 'Kroketten'
+						} else if (position.auswahl == 1) {
+							auswahl = position.produkt.kategorie.id == 2 ? 'Gnocchi' : 'Spätzle'
+						} else {
+							auswahl = position.produkt.kategorie.id == 2 ? 'Fusilli' : 'Pommes'
+						}
+						content += position.produkt.kategorie.id == 2 ? `<th style="text-align: left; width: 350px;">${position.produkt.name} (${auswahl})</th>` : `<th style="text-align: left; width:350px;">${position.produkt.name} mit ${auswahl}</th>`
+					}
+					content += `<th style="text-align: right;">${new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(position.nettosumme)}</th>`
+				content += '</tr>'
+				}
+				content += `<tr><th>&nbsp;</th><th style="text-align: left;">Mehrwertsteuer (19%)</th><th style="text-align: right;">${new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(bestellung.total.mehrwertsteuer)}</th></tr>`
+				content += `<tr><th>&nbsp;</th><th style="text-align: left;">Gesamtpreis</th><th style="text-align: right; border-top: 2px solid black;">${new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(bestellung.total.brutto)}</th></tr>`
+				content += '</table>'
+				$('#table').html(content)
+				$('#additional').html(`Ihre Bestellung wird nun zubereitet und in Kürze nach ${kunde.ort} zur ${kunde.adresse} geliefert.`)
+			}).fail(function (jqXHR, statusText, error) {
+				console.log('Error occured')
+				console.log('Response Code: ' + jqXHR.status + ' - Message: ' + jqXHR.responseText)
+				alert(jqXHR.responseText)
+			});
+	})
+</script>

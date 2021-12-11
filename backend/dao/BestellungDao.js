@@ -125,7 +125,7 @@ class BestellungDao {
 
         if (bestellpositionen.length > 0) { 
             for (var position of bestellpositionen) {
-                bestellpositionDao.create(position.produktid, result.lastInsertRowid, position.durchmesser, position.menge)
+                bestellpositionDao.create(position.produktid, result.lastInsertRowid, position.durchmesser, position.auswahl, position.menge)
             }
         }
 

@@ -64,6 +64,7 @@
 	position: absolute;
 	right: 13%;
 	width: 50px;
+	font-weight: 600
 }
 .btn2{
 	background-color: grey;
@@ -174,3 +175,4 @@ a:hover {
 	width: 100%;
 	padding: 10px;
 }
+
