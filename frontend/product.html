@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Product Page</title>
+		<title id="title">Product Page</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<script src="js/sessionHandling.js"></script>
@@ -43,6 +43,8 @@
 				dataType: 'json'
 			}).done(function (response) {
 				console.log(response.daten)
+				let title = document.getElementById('title')
+				title.innerHTML = response.daten[0].kategorie.name
 
 				var content = ''
 				for (i = 0; i < response.daten.length; i++) {
