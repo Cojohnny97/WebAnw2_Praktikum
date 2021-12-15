@@ -17,7 +17,7 @@ serviceRouter.get('/bestellung/gib/:id', function(request, response) {
         helper.logError('Service Bestellung: Error loading record by id. Exception occured: ' + ex.message)
         response.status(400).json(helper.jsonMsgError(ex.message))
     }
-});
+})
 
 serviceRouter.get('/bestellung/alle', function(request, response) {
     helper.log('Service Bestellung: Client requested all records')

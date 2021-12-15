@@ -31,9 +31,6 @@
 	<script>
 
 		$(document).ready(function() {
-			// removeSessionItem('bestellpositionen')
-			// removeSessionItem('idCounter')
-			console.log(getSessionItem('bestellpositionen'))
 			var search = new URLSearchParams(window.location.search)
 			var id = search.get('id') || 1
 			console.log(`Loading all products with CategoryId=${id}`)

@@ -48,7 +48,7 @@ try {
 
     // binding endpoints
     const TOPLEVELPATH = '/webanw2';
-    helper.log('Binding enpoints, top level Path at ' + TOPLEVELPATH);
+    helper.log('Binding endpoints, top level Path at ' + TOPLEVELPATH);
     
     var serviceRouter = require('./services/Kategorie.js');
     app.use(TOPLEVELPATH, serviceRouter);
@@ -60,6 +60,9 @@ try {
     app.use(TOPLEVELPATH, serviceRouter);
 
     serviceRouter = require('./services/Bestellung.js');
+    app.use(TOPLEVELPATH, serviceRouter);
+
+    serviceRouter = require('./services/Bewerber.js');
     app.use(TOPLEVELPATH, serviceRouter);
 
     // send default error message if no matching endpoint found

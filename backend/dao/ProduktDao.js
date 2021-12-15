@@ -18,10 +18,10 @@ class ProduktDao {
         
         result = helper.objectKeysToLower(result)
         result.kategorie = kategorieDao.getById(result.kategorieid)
-        delete result.kategorieId
+        delete result.kategorieid
 
         result.mehrwertsteuer = mehrwertsteuerDao.getById(result.mwstid)
-        delete result.mwstId
+        delete result.mwstid
 
         result.bruttopreis = helper.round(result.nettopreis + (result.nettopreis * (result.mehrwertsteuer.satz / 100)))
         return result
