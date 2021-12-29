@@ -12,7 +12,7 @@ Quick Guide to start the servers:
 
  When backend server runs:
  4. Go to directory 'frontend'
- 5. cmd: 'node server.js'
+ 5. cmd: 'node client.js'
 
  Frontend-Server should run at localhost:8080
 

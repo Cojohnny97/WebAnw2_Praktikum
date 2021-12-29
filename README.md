@@ -14,8 +14,8 @@
  When backend server runs:
 
  4. Go to directory 'frontend'
- 5. cmd: 'node server.js'
+ 5. cmd: 'node client.js'
 
- Frontend-Server should now run at localhost:8080
+ Client-Server should now run at localhost:8080
 
  6. In Browser open 'localhost:8080/Startseite.html'
