@@ -7,14 +7,15 @@
  1. cmd: 'npm install' to install node_modules
  2. Go to directory 'backend'
  3. cmd: 'node server.js'
- Backend server should run at localhost:8000
+ 
+ Backend server should now run at localhost:8000
 
 
  When backend server runs:
- 
+
  4. Go to directory 'frontend'
  5. cmd: 'node server.js'
 
- Frontend-Server should run at localhost:8080
+ Frontend-Server should now run at localhost:8080
 
  6. In Browser open 'localhost:8080/Startseite.html'
