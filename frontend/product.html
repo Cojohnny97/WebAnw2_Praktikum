@@ -163,7 +163,8 @@
 						} 
 
 					}
-
+					document.getElementById(`28cm${id}`).checked = false
+					document.getElementById(`30cm${id}`).checked = false
 				} else { //case: Pasta/Schnitzel
 					if ((!document.getElementById(`0_${id}`).checked) && (!document.getElementById(`1_${id}`).checked) && (!document.getElementById(`2_${id}`).checked)) { //case: keine Auswahl getroffen
 						kategorieId == 2 ? alert('Sie müssen eine Nudelart auswählen') : alert('Sie müssen eine Beilage auswählen')
@@ -209,8 +210,13 @@
 							}
 						} 
 					}
+					document.getElementById(`0_${id}`).checked = false
+					document.getElementById(`1_${id}`).checked = false
+					document.getElementById(`2_${id}`).checked = false
 				} 
 			}
+			document.getElementById(`menge${id}`).value = ''
+			
 			console.log(getSessionItem('bestellpositionen'))
 			let cart = document.getElementById('cart')
 			cart.innerHTML = 'Warenkorb (' + gesamtMenge() + ')'	

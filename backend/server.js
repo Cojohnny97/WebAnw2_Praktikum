@@ -3,7 +3,7 @@ Object.fromEntries = l => l.reduce((a, [k,v]) => ({...a, [k]: v}), {})
 /////////////////
 
 const helper = require('./helper.js');
-helper.log('Starting server...');
+helper.log('Starting backend server...');
 
 try {
     // connect database
@@ -16,7 +16,6 @@ try {
     // create server
     const HTTP_PORT = 8000;
     const express = require('express');
-    const fileUpload = require('express-fileupload');
     const cors = require('cors');
     const bodyParser = require('body-parser');
     const morgan = require('morgan');
@@ -29,12 +28,6 @@ try {
     app.locals.dbConnection = dbConnection;
 
     helper.log('Binding middleware...');
-    app.use(fileUpload({
-        createParentPath: true,
-        limits: {
-            fileSize: 2 * 1024 * 1024 * 1024        // limit to 2MB
-        }
-    }));
     app.use(cors());
     app.use(bodyParser.urlencoded({ extended: true}));
     app.use(bodyParser.json());

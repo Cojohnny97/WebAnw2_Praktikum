@@ -2,8 +2,18 @@
 
 [Github Repository](https://github.com/Cojohnny97/WebAnw2_Praktikum)
  
- Quick Guide to start the server:
+ Quick Guide to start the servers:
+ 
  1. cmd: 'npm install' to install node_modules
  2. Go to directory 'backend'
  3. cmd: 'node server.js'
- 4. Open 'Startseite.html' in directory 'frontend'
+ Backend server should run at localhost:8000
+
+
+ When backend server runs:
+ 4. Go to directory 'frontend'
+ 5. cmd: 'node server.js'
+
+ Frontend-Server should run at localhost:8080
+
+ 6. In Browser open 'localhost:8080/Startseite.html'
