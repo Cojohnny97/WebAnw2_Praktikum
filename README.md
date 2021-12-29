@@ -11,6 +11,7 @@
 
 
  When backend server runs:
+ 
  4. Go to directory 'frontend'
  5. cmd: 'node server.js'
 
